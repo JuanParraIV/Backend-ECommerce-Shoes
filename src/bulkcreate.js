@@ -1,41 +1,27 @@
-const { categories } = require("./prueba.json");
-const { instruments } = require("./prueba2.json");
+const { categories } = require('./categorias.json');
+const { instruments } = require('./instrumentos.json');
 const { Instrument, Category } = require("./libs/postgres");
 
-let allData = async () => {
+
+const allData = async (req,res,next) => {
   try {
-    const categoryValidation = await Category.findOne({
-      where: { id: 1 },
-    });
-    if (!categoryValidation) {
-      await Category.bulkCreate(categories);
-      console.log("Categories loaded in db succesfully");
-    }
-
-    const instValidation = await Instrument.findOne({
-      where: { id: 1 },
-    });
-
-    if (!instValidation) {
-      const inst = instruments.map(async (e) => {
-        await Instrument.create(e).then(async (x) => {
-          const category = e.category;
-          let newInstrumentCategory = await Category.findOne({
-            where: {
-              name: category,
-            },
-          });
-          await x.setCategory(newInstrumentCategory);
-        });
+    const resultQueryFromDb = await Category.findAll();
+    if (!resultQueryFromDb.length===0) {
+      const categoryArray = categories.map((category) => {
+        return {
+          name: category.name,
+        };
       });
-
-      console.log("Instruments loaded in db succesfully");
+      await Category.bulkCreate(categoryArray);
+      return res.status(200).json(categoryArray);
+    } else {
+      return res.status(200).json(resultQueryFromDb);
     }
+
   } catch (error) {
     console.log(error);
   }
 };
-
 module.exports = {
   allData,
 };
