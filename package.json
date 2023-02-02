@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "fakeapi": "json-server --watch db.json --port 5050",
     "dev": "nodemon -L",
-    "start": "nodemon -L",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "fakeapi": "json-server --watch db.json --port 5050"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
