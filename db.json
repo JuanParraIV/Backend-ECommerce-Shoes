@@ -1,4 +1,15 @@
 {
+  "categories": [
+    {
+      "name": "stringed"
+    },
+    {
+      "name": "wind"
+    },
+    {
+      "name": "percussion"
+    }
+  ],
   "instruments": [
     {
       "name": "Violin 1/32 Genova 1433P",
