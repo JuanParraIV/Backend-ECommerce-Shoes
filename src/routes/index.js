@@ -1,12 +1,12 @@
 
 const { Router } = require("express");
 
-const categoryRouter = require('./category.router');
+const categoryRouter = require('./category.routes');
 const { allData } = require("../bulkcreate");
 
 const router = Router();
 
-router.get("/",allData)
+router.get("/", allData);
 router.use("/category", categoryRouter);
 
 

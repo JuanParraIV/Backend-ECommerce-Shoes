@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const getEnvVariable = (name)=> {
+const getEnvVariable = (name) => {
   const value = process.env[name];
   if (!value) {
     throw new Error(`The environment variable '${name}' is required but not set.`);
@@ -8,7 +8,7 @@ const getEnvVariable = (name)=> {
   return value;
 };
 
- const ENV = {
+const ENV = {
   host: getEnvVariable('POSTGRES_HOST'),
   username: getEnvVariable('POSTGRES_USER'),
   password: getEnvVariable('POSTGRES_PASSWORD'),

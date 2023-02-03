@@ -1,30 +1,46 @@
 const { DataTypes, Sequelize } = require("sequelize");
 module.exports = (sequelize) => {
   sequelize.define(
-    "instrument",
+    "sneaker",
     {
+      brand_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      brand: {
+      color: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      price: {
+      retail_price_cents: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      img: {
+      size_range: {
+        type: DataTypes.ARRAY(DataTypes.FLOAT),
+        allowNull: false,
+      },
+      grid_picture_url: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      description: {
+      original_picture_url: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      stock: {
-        type: DataTypes.INTEGER,
+      main_picture_url: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      details: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      has_stock: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       status: {

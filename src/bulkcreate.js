@@ -1,43 +1,43 @@
-const { Instrument, Category } = require("./libs/postgres");
+const { Sneaker, Category } = require("./libs/postgres");
 const axios = require("axios");
 
 
-const allData = async (req,res,next) => {
+const allData = async (req, res, next) => {
   try {
     const getCategoriesFromJson = await axios.get(
       `http://localhost:5050/categories/`);
-    const getinstrumentsFromJson = await axios.get(
-        `http://localhost:5050/instruments/`);
-      const categories =getCategoriesFromJson.data;
-      const instruments =getinstrumentsFromJson.data;
+    const getSneakersFromJson = await axios.get(
+      `http://localhost:5050/sneakers/`);
+    const categories = getCategoriesFromJson.data;
+    const sneakers = getSneakersFromJson.data;
 
-      const categoryValidation = await Category.findOne({
-        where: { id: 1 },
-      });
-      if (!categoryValidation) {
-        await Category.bulkCreate(categories);
-        console.log("Categories loaded in db succesfully");
-      }
+    const categoryValidation = await Category.findOne({
+      where: { id: 1 },
+    });
+    if (!categoryValidation) {
+      await Category.bulkCreate(categories);
+      console.log("Categories loaded in db succesfully");
+    }
 
-      const instValidation = await Instrument.findOne({
-        where: { id: 1 },
-      });
+    const instValidation = await Sneaker.findOne({
+      where: { id: 1 },
+    });
 
-      if (!instValidation) {
-        const inst = instruments.map(async (e) => {
-          await Instrument.create(e).then(async (x) => {
-            const category = e.category;
-            let newInstrumentCategory = await Category.findOne({
-              where: {
-                name: category,
-              },
-            });
-            await x.setCategory(newInstrumentCategory);
+    if (!instValidation) {
+      const sneak = sneakers.map(async (e) => {
+        await Sneaker.create(e).then(async (x) => {
+          const category = e.category;
+          let newSneakerCategory = await Category.findOne({
+            where: {
+              name: category,
+            },
           });
+          await x.setCategory(newSneakerCategory);
         });
+      });
 
-        console.log("Instruments loaded in db succesfully");
-      }
+      console.log("Sneakers loaded in db succesfully");
+    }
 
   } catch (error) {
     console.log(error);
