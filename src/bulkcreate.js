@@ -1,15 +1,18 @@
 const { Sneaker, Category } = require("./libs/postgres");
+const {categories} = require("./categories.json");
+const {sneakers} = require("./sneaker.json");
+
 const axios = require("axios");
 
 
 const allData = async (req, res, next) => {
   try {
-    const getCategoriesFromJson = await axios.get(
+    /* const getCategoriesFromJson = await axios.get(
       `http://localhost:5050/categories/`);
     const getSneakersFromJson = await axios.get(
       `http://localhost:5050/sneakers/`);
     const categories = getCategoriesFromJson.data;
-    const sneakers = getSneakersFromJson.data;
+    const sneakers = getSneakersFromJson.data; */
 
     const categoryValidation = await Category.findOne({
       where: { id: 1 },
