@@ -2,32 +2,33 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const { ENV } = require('./config');
-let sequelize =
-  process.env.NODE_ENV === "production"
-    ? new Sequelize({
-      database: ENV.database,
-      dialect: "postgres",
-      host: ENV.host,
-      port: ENV.port,
-      username: ENV.username,
-      password: ENV.password,
-      pool: {
-        max: 3,
-        min: 1,
-        idle: 10000,
-      },
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-        keepAlive: true,
-      },
-      ssl: true,
-    })
-    : new Sequelize(ENV.databaseUrl,
+let sequelize = new Sequelize(ENV.databaseUrl,
       { logging: false, native: false }
     );
+/*
+  process.env.NODE_ENV === "production"
+  ? new Sequelize({
+    database: ENV.database,
+    dialect: "postgres",
+    host: ENV.host,
+    port: ENV.port,
+    username: ENV.username,
+    password: ENV.password,
+    pool: {
+      max: 3,
+      min: 1,
+      idle: 10000,
+    },
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+      keepAlive: true,
+    },
+    ssl: true,
+  })
+  :  */
 
 /* const sequelize = new Sequelize(`postgres://${ENV.user}:${ENV.password}@${ENV.host}/${ENV.database}`, {
   logging: false, // set to console.log to see the raw SQL queries
