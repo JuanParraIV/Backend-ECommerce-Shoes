@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { ENV } = require('./config');
 let sequelize = new Sequelize(ENV.databaseUrl,
-      { logging: false, native: false }
-    );
+  { logging: false, native: false }
+);
 /*
   process.env.NODE_ENV === "production"
   ? new Sequelize({
@@ -54,12 +54,15 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Category, Sneaker } = sequelize.models;
+const { Category, Sneaker, Brand } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+Brand.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
+Sneaker.belongsTo(Brand);
 Category.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
 Sneaker.belongsTo(Category);
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

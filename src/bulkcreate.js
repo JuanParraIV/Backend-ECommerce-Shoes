@@ -1,9 +1,7 @@
-const { Sneaker, Category } = require("./libs/postgres");
-const {categories} = require("./categories.json");
-const {sneakers} = require("./sneaker.json");
-
-const axios = require("axios");
-
+const { Sneaker, Category, Brand } = require("./libs/postgres");
+const { brands } = require("./brands.json");
+const { categories } = require("./categories.json");
+const { sneakers } = require("./sneaker.json");
 
 const allData = async (req, res, next) => {
   try {
@@ -13,6 +11,14 @@ const allData = async (req, res, next) => {
       `http://localhost:5050/sneakers/`);
     const categories = getCategoriesFromJson.data;
     const sneakers = getSneakersFromJson.data; */
+    const brandValidation = await Brand.findOne({
+      where: { id: 1 },
+    });
+    if (!brandValidation) {
+      await Brand.bulkCreate(brands);
+      console.log("Brands loaded in db succesfully");
+    }
+
 
     const categoryValidation = await Category.findOne({
       where: { id: 1 },
@@ -22,11 +28,11 @@ const allData = async (req, res, next) => {
       console.log("Categories loaded in db succesfully");
     }
 
-    const instValidation = await Sneaker.findOne({
+    const sneakValidation = await Sneaker.findOne({
       where: { id: 1 },
     });
 
-    if (!instValidation) {
+    if (!sneakValidation) {
       const sneak = sneakers.map(async (e) => {
         await Sneaker.create(e).then(async (x) => {
           const category = e.category;

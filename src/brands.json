@@ -1,0 +1,25 @@
+{
+  "brands": [
+    {
+      "name": "Air Jordan"
+    },
+    {
+      "name": "Champion"
+    },
+    {
+      "name": "Converse"
+    },
+    {
+      "name": "Gucci"
+    },
+    {
+      "name": "Nike"
+    },
+    {
+      "name": "Vans"
+    },
+    {
+      "name": "adidas"
+    }
+  ]
+}
