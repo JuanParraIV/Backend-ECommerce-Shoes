@@ -28,7 +28,7 @@ let sequelize = new Sequelize(ENV.databaseUrl,
     },
     ssl: true,
   })
-  :  */
+  : */
 
 /* const sequelize = new Sequelize(`postgres://${ENV.user}:${ENV.password}@${ENV.host}/${ENV.database}`, {
   logging: false, // set to console.log to see the raw SQL queries
