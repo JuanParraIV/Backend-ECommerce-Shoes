@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon -L",
+    "start":"node ./index.js",
     "fakeapi": "json-server --watch db.json --port 5050",
     "dev": "nodemon -L",
     "test": "echo \"Error: no test specified\" && exit 1"
