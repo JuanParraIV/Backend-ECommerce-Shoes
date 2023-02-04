@@ -25,7 +25,7 @@ let sequelize =
       },
       ssl: true,
     })
-    : new Sequelize(ENV.databaseUrl,
+    : new Sequelize(`postgres://${ENV.username}:${ENV.password}@${ENV.host}/${ENV.database}`,
       { logging: false, native: false }
     );
 
@@ -53,10 +53,12 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Category, Sneaker } = sequelize.models;
+const { Category, Sneaker, Brand } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+Brand.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
+Sneaker.belongsTo(Brand);
 Category.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
 Sneaker.belongsTo(Category);
 
