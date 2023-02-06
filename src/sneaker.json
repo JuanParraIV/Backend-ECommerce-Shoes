@@ -2,7 +2,7 @@
   "sneakers": [
     {
       "brand_name": "Air Jordan",
-      "category": ["basketball"],
+      "category_name": ["basketball"],
       "color": "Black",
       "details": "Black/White-Medium Grey",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/011/119/994/original/218099_00.png.png",
@@ -19,7 +19,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["basketball"],
+      "category_name": ["basketball"],
       "color": "Black",
       "details": "Black/Cement Grey-Summit White-Fire Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/806/444/original/507844_00.png.png",
@@ -33,7 +33,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["basketball"],
+      "category_name": ["basketball"],
       "color": "Black",
       "details": "Black/Concord-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png",
@@ -50,7 +50,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["basketball"],
+      "category_name": ["basketball"],
       "color": "Red",
       "details": "Gym Red/Black-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/008/870/353/original/235806_00.png.png",
@@ -67,7 +67,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["basketball"],
+      "category_name": ["basketball"],
       "color": "White",
       "details": "White/Legend Blue",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/010/223/048/original/13607_00.png.png",
@@ -84,7 +84,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Black-Metallic Gold-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/545/481/original/509480_00.png.png",
@@ -101,7 +101,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Varsity Red-Varsity Royal-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/012/910/690/original/554724_065.png.png",
@@ -118,7 +118,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Cement Grey-Summit White-Fire Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/806/485/original/461782_00.png.png",
@@ -135,7 +135,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Infrared 23-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/675/311/original/464372_00.png.png",
@@ -152,7 +152,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Metallic Gold-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/042/384/original/500924_00.png.png",
@@ -169,7 +169,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/White-Gum Light Brown",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/071/547/original/479524_00.png.png",
@@ -186,7 +186,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Blue",
       "details": "White/Dark Powder Blue-Cone",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/012/219/518/original/335047_00.png.png",
@@ -203,7 +203,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Blue",
       "details": "Ice Blue/Sail-Metallic Gold-University Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/474/777/original/TR_JSP_5_ICE.png.png",
@@ -220,7 +220,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Blue",
       "details": "university blue/varsity red-black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/012/478/518/original/365514_00.png.png",
@@ -237,7 +237,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Brown",
       "details": "Gold Harvest/Black-Sail",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/016/152/710/original/402491_00.png.png",
@@ -254,7 +254,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Brown",
       "details": "Sail/Dark Mocha-University Red-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/783/111/original/488879_00.png.png",
@@ -271,7 +271,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Brown",
       "details": "Shimmer/Mahogany Mink-Velvet Brown-Tough Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/321/847/original/473391_00.png.png",
@@ -288,7 +288,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Green",
       "details": "Turbo Green/White-Light Smoke Grey-Sail",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/552/901/original/404758_00.png.png",
@@ -305,7 +305,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Pink",
       "details": "Black/Crimson Tint-Hyper Pink-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/249/059/original/485842_00.png.png",
@@ -322,7 +322,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Pink",
       "details": "White/Black-Pink",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/357/907/original/478963_00.png.png",
@@ -339,7 +339,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Purple",
       "details": "Court Purple/Sail-University Gold-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/270/533/original/CD6578_507.png.png",
@@ -356,7 +356,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Red",
       "details": "Gym Red/Summit White-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/009/559/594/original/144690_00.png.png",
@@ -373,7 +373,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Red",
       "details": "Gym Red/White-Black-Photo Blue",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/016/867/969/original/478648_00.png.png",
@@ -390,7 +390,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Red",
       "details": "Gym Red/Gym Red-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/016/596/414/original/376931_00.png.png",
@@ -407,7 +407,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Red",
       "details": "Light Bone/University Red-Sail-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/219/116/original/CD6846_002.png.png",
@@ -424,7 +424,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Sail/Black-Phantom-University Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/095/762/original/411931_00.png.png",
@@ -441,7 +441,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/White-Gum Yellow",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/317/617/original/SP_AJ1_LOW_BP.png.png",
@@ -458,7 +458,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Platinum Tint/Sail-University Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/015/392/851/original/429772_00.png.png",
@@ -475,7 +475,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/Black-Dark Concord",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/016/934/177/original/351614_00.png",
@@ -492,7 +492,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/Black-Navy",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/310/667/original/459705_00.png.png",
@@ -509,7 +509,7 @@
     },
     {
       "brand_name": "Air Jordan",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/Fire Red-Tech Grey-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/008/654/831/original/31342_00.png.png",
@@ -526,7 +526,7 @@
     },
     {
       "brand_name": "Champion",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/White/Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/015/567/335/original/CM100018M.png.png",
@@ -543,7 +543,7 @@
     },
     {
       "brand_name": "Converse",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Cream",
       "details": "Cream/Multicolor",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/552/840/original/476518_00.png.png",
@@ -560,7 +560,7 @@
     },
     {
       "brand_name": "Converse",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Milk",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/015/298/767/original/77243_00.png.png",
@@ -577,7 +577,7 @@
     },
     {
       "brand_name": "Gucci",
-      "category": ["other"],
+      "category_name": ["other"],
       "color": "Black",
       "details": "Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/009/249/006/original/259509_00.png.png",
@@ -594,7 +594,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["basketball"],
+      "category_name": ["basketball"],
       "color": "Black",
       "details": "Black/White-Bright Crimson",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/840/270/original/491192_00.png.png",
@@ -611,7 +611,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Reflect Silver-Blue Lagoon",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/627/570/original/491891_00.png.png",
@@ -628,7 +628,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Black-Fossil",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/545/549/original/489359_00.png.png",
@@ -645,7 +645,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Black-Cone-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/017/763/484/original/466439_00.png.png",
@@ -662,7 +662,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/White/Cone",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/012/750/761/original/351623_00.png.png",
@@ -679,7 +679,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Blue",
       "details": "Varsity Blue/Del Sol-Varsity Red-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/019/246/220/original/491897_00.png.png",
@@ -696,7 +696,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Cream",
       "details": "Sail/Obsidian-Total Crimson",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/545/501/original/507173_00.png.png",
@@ -713,7 +713,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Multi-Color",
       "details": "Black/Bright Crimson",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/249/043/original/494127_00.png.png",
@@ -730,7 +730,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Orange",
       "details": "Team Orange/White-Black-Tour Yellow",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/019/994/877/original/AJ7747_800.png.png",
@@ -747,7 +747,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Red",
       "details": "Mars Stone/Magma Orange",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/019/804/999/original/488028_00.png.png",
@@ -764,7 +764,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Tan",
       "details": "Desert Ore/Desert Ore-Hyper Jade-Bright Mango",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/017/794/455/original/394710_00.png.png",
@@ -781,7 +781,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/Total Orange-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/010/564/058/original/303229_00.png.png",
@@ -798,7 +798,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Sail/Gum Light Brown/Sail",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/013/832/092/original/306892_00.png.png",
@@ -815,7 +815,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/Black-Hyper Crimson",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/881/688/original/508101_00.png.png",
@@ -832,7 +832,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/Black-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/019/367/662/original/484799_00.png.png",
@@ -849,7 +849,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/University Blue",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/898/008/original/482531_00.png.png",
@@ -866,7 +866,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/010/222/352/original/240_00.png.png",
@@ -883,7 +883,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Game Royal/Metallic Silver-White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/562/245/original/480142_00.png.png",
@@ -900,7 +900,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Light Bone/Black-Sail",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/627/586/original/487222_00.png.png",
@@ -917,7 +917,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Pure Platinum/Black-Sail",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/737/643/original/504006_00.png.png",
@@ -934,7 +934,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["running"],
+      "category_name": ["running"],
       "color": "Grey",
       "details": "Green Mist/Light Beige Chalk",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/321/832/original/503571_00.png.png",
@@ -951,7 +951,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["running"],
+      "category_name": ["running"],
       "color": "White",
       "details": "White/Wolf Grey-Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/010/988/952/original/180155_00.png.png",
@@ -968,7 +968,7 @@
     },
     {
       "brand_name": "Nike",
-      "category": ["running"],
+      "category_name": ["running"],
       "color": "White",
       "details": "White/Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/010/634/133/original/303217_00.png.png",
@@ -985,7 +985,7 @@
     },
     {
       "brand_name": "Vans",
-      "category": ["skateboarding"],
+      "category_name": ["skateboarding"],
       "color": "Multi-Color",
       "details": "Blue/Green-Yellow",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/011/051/956/original/335725_00.png.png",
@@ -1002,7 +1002,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Black/Black/Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/624/696/original/FU9013.png.png",
@@ -1019,7 +1019,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Black",
       "details": "Vanta/Vanta/Vanta",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/147/972/original/504187_00.png.png",
@@ -1036,7 +1036,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Blue",
       "details": "Blue Tint/Grey Three/High Resolution Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/008/707/328/original/152603_00.png.png",
@@ -1053,7 +1053,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Blue",
       "details": "Power Blue/Core Black/Cloud White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/545/467/original/512006_00.png.png",
@@ -1070,7 +1070,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Cream",
       "details": "Analog/Analog/Analog",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/287/568/original/480136_00.png.png",
@@ -1087,7 +1087,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Green",
       "details": "Glow/Glow/Glow",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/021/357/863/original/508082_00.png.png",
@@ -1104,7 +1104,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Grey",
       "details": "Grey/Bold Orange/Dark Solid Grey",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/008/654/534/original/152982_00.png.png",
@@ -1121,7 +1121,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Grey",
       "details": "Inertia/Inertia/Inertia",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/019/367/689/original/479750_00.png.png",
@@ -1138,7 +1138,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Grey",
       "details": "Sesame/Sesame/Sesame",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/014/037/000/original/357808_00.png.png",
@@ -1155,7 +1155,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Grey",
       "details": "Solid Grey/Chalk White/Core Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/014/507/851/original/195483_00.png.png",
@@ -1172,7 +1172,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Grey",
       "details": "Static/Static/Static",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/017/488/396/original/424152_00.png",
@@ -1189,7 +1189,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Red",
       "details": "Scarlet/Footwear White/Core Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/666/882/original/486579_00.png.png",
@@ -1206,7 +1206,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Tan",
       "details": "Clay/Clay/Clay",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/019/471/948/original/487214_00.png.png",
@@ -1223,7 +1223,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Cream White/Cream White/Core White",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/014/822/680/original/116662_00.png.png",
@@ -1240,7 +1240,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Salt/Salt/Salt",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/018/951/283/original/492186_00.png.png",
@@ -1257,7 +1257,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "White/Core Black/Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/014/979/033/original/105568_00.png.png",
@@ -1274,7 +1274,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "White",
       "details": "Cloud White/Cloud White/Core Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/020/249/956/original/EF3326.png.png",
@@ -1291,7 +1291,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Yellow",
       "details": "Butter/Butter/Butter",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/012/598/505/original/348063_00.png.png",
@@ -1308,7 +1308,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["lifestyle"],
+      "category_name": ["lifestyle"],
       "color": "Yellow",
       "details": "Semi Frozen Yellow/Raw Steel/Red",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/016/928/118/original/155573_00.png.png",
@@ -1325,7 +1325,7 @@
     },
     {
       "brand_name": "adidas",
-      "category": ["running"],
+      "category_name": ["running"],
       "color": "White",
       "details": "White/White/Black",
       "grid_picture_url": "https://image.goat.com/375/attachments/product_template_pictures/images/011/292/904/original/298048_00.png.png",
