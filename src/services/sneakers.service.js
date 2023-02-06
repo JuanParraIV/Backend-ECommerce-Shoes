@@ -59,10 +59,17 @@ const getByCategoryParams = async (req, res, next) => {
     return res.status(400).send(error.message);
   }
 };
+
 const getByQueryName = async (req, res, next) => {
   try {
-    const { category_name, brand_name } = req.query;
+    const { category_name, brand_name, name} = req.query;
     const where = {};
+
+    if (name) {
+      where.name = {
+        [Op.iLike]: `%${name}%`,
+      };
+    }
 
     if (category_name) {
       where.category_name = {
@@ -76,8 +83,8 @@ const getByQueryName = async (req, res, next) => {
       };
     }
 
-    if (!category_name && !brand_name) {
-      return res.status(400).send("Error, Sneaker Category name or Brand name not provided");
+    if (!category_name && !brand_name && !name) {
+      return res.status(400).send("Error, Sneaker Name, Category name or Brand name not provided");
     }
 
     const sneaker = await Sneaker.findAll({ where });
@@ -85,7 +92,7 @@ const getByQueryName = async (req, res, next) => {
     if (!sneaker || sneaker.length === 0) {
       return res
         .status(400)
-        .send(`Error, Sneaker with Category name ${category_name} and/or Brand name ${brand_name} not found`);
+        .send(`Error, Sneaker ${name} with Category name ${category_name} and/or Brand name ${brand_name} not found`);
     }
 
     return res.status(200).send(sneaker);
