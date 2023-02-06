@@ -7,6 +7,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      category_name: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
