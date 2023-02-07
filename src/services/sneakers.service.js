@@ -10,6 +10,28 @@ const getAllSneakers = async (req, res) => {
     return res.status(400).send(e.message);
   }
 };
+const getByIdParams = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).send(`Error, Sneaker with ID ${id} not found`);
+    }
+
+    const sneaker = await Sneaker.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!sneaker || sneaker.length === 0) {
+      return res.status(400).send(`Error, Sneaker with ID ${id} not found`);
+    }
+
+    return res.status(200).send(sneaker);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
 
 const getByBrandParams = async (req, res, next) => {
   try {
@@ -101,4 +123,4 @@ const getByQueryName = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllSneakers, getByBrandParams, getByCategoryParams, getByQueryName};
+module.exports = { getAllSneakers, getByBrandParams, getByCategoryParams, getByQueryName, getByIdParams};
