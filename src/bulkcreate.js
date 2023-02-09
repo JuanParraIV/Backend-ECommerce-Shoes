@@ -1,4 +1,6 @@
-const { Sneaker, Category, Brand } = require("./libs/postgres");
+const { Sneaker, Category, Brand, Admin, User } = require("./libs/postgres");
+const { users } = require("./users.json");
+const { admins } = require("./admin.json");
 const { brands } = require("./brands.json");
 const { categories } = require("./categories.json");
 const { sneakers } = require("./sneaker.json");
@@ -14,6 +16,23 @@ const allData = async (req, res, next) => {
       `http://localhost:5050/sneakers/`);
     const categories = getCategoriesFromJson.data;
     const sneakers = getSneakersFromJson.data; */
+
+    const adminValidation = await Admin.findOne({
+      where: { id: 1 },
+    });
+    if (!adminValidation) {
+      await Admin.bulkCreate(admins);
+      console.log("Admins loaded in db succesfully");
+    }
+
+    const userValidation = await User.findOne({
+      where: { id: 1 },
+    });
+    if (!userValidation) {
+      await User.bulkCreate(users);
+      console.log("Users loaded in db succesfully");
+    }
+
     const brandValidation = await Brand.findOne({
       where: { id: 1 },
     });
