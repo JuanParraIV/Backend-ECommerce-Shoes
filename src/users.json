@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "dni": 1024602971,
+      "firstName": "Juan",
+      "lastName": "Parra",
+      "contactNumber": 3502053590,
+      "buyerAddress": "avenida por alli",
+      "email": "jmparra1993@gmail.com",
+      "userName": "juanp2",
+      "password": "23893437",
+      "rol": "user"
+    },
+    {
+      "dni": 1085325163,
+      "firstName": "Daniela",
+      "lastName": "Gomez",
+      "contactNumber": 3187213726,
+      "buyerAddress": "avenida por alli ",
+      "email": "ledangom@gmail.com",
+      "userName": "DanielaUser",
+      "password": "1085325163*",
+      "rol": "user"
+    }
+  ]
+}

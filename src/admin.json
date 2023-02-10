@@ -1,0 +1,20 @@
+{
+  "admins": [
+    {
+      "userName": "juanp3",
+      "password": "23893437",
+      "firstName": "Juan",
+      "lastName": "Parra",
+      "email": "jmparra1993@gmail.com",
+      "rol": "admin"
+    },
+    {
+      "userName": "Daniela",
+      "password": "1085325163*",
+      "firstName": "Daniela",
+      "lastName": "Gomez",
+      "email": "ledangom@gmail.com",
+      "rol": "admin"
+    }
+  ]
+}

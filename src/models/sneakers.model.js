@@ -43,14 +43,23 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      has_stock: {
+      stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      isBanned:{
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       status: {
         type: DataTypes.ENUM("New", "Used"),
         allowNull: false,
       },
+      raiting:{
+        type:DataTypes.INTEGER(),
+        allowNull:true
+      }
     },
     { timestamps: false }
   );

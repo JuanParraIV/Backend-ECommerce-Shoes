@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 const { Sneaker } = require('../libs/postgres');
 
 
-const getAllSneakers = async (req, res) => {
+const getAll = async (req, res) => {
   try {
     let sneakers = await Sneaker.findAll();
     return res.status(200).send(sneakers);
@@ -10,7 +10,6 @@ const getAllSneakers = async (req, res) => {
     return res.status(400).send(e.message);
   }
 };
-
 const getByIdParams = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -124,4 +123,119 @@ const getByQueryName = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllSneakers, getByBrandParams, getByCategoryParams, getByQueryName, getByIdParams};
+/* const Add = async (req, res, next) => {
+  const { name, brand, price, img, description, stock, status, category } =
+    req.body;
+
+  const nameUpperCase = name.split(" ");
+  for (let i = 0; i < nameUpperCase.length; i++) {
+    nameUpperCase[i] =
+      nameUpperCase[i][0].toUpperCase() + nameUpperCase[i].substr(1);
+  }
+  const finalName = nameUpperCase.join(" ");
+
+  try {
+    let newSneakerCategory = await Category.findOne({
+      where: {
+        name: category,
+      },
+    });
+    if (!newSneakerCategory) {
+      throw new TypeError("Category not found");
+    } else {
+      let newSneaker = await Sneaker.create({
+        name: finalName,
+        brand,
+        price,
+        img,
+        description,
+        stock,
+        status,
+      });
+      await newSneaker.setCategory(newSneakerCategory);
+      return res.status(200).json({ message: "Activity successfully added" });
+    }
+  } catch (error) {
+    next(error);
+  }
+}; */
+const Delete = async (req, res) => {
+  const { id } = req.body;
+  try {
+    if (id) {
+      const deleteSneaker = await Sneaker.findByPk(id);
+      if (!deleteSneaker) {
+        throw new TypeError("Error, Sneaker not found with this Id");
+      }
+      deleteSneaker.isBanned = true;
+      await deleteSneaker.save();
+      res.status(200).send("Sneaker deleted");
+    } else {
+      throw new TypeError("Error, The Id entered is not valid");
+    }
+  } catch (e) {
+    return res.status(400).send(e.message);
+  }
+};
+
+/* const Modify = async (req, res) => {
+  try {
+    const {
+      id,
+      name,
+      brand,
+      price,
+      img,
+      description,
+      stock,
+      status,
+      category,
+      isBanned,
+    } = req.body;
+
+    if (
+      !id ||
+      !name ||
+      !brand ||
+      !price ||
+      !img ||
+      !description ||
+      !stock ||
+      !status ||
+      !category ||
+      isBanned === null
+    ) {
+      throw new TypeError("data sent incorrectly");
+    }
+
+    let Sneaker = await Sneaker.findByPk(parseInt(id));
+    if (!Sneaker) throw new TypeError("incorrect id");
+
+    await Sneaker.update({
+      name,
+      brand,
+      price: parseInt(price),
+      img,
+      description,
+      stock: parseInt(stock),
+      status,
+      isBanned: stock == 0 ? true : false,
+    });
+
+    let newSneakerCategory = await Category.findOne({
+      where: {
+        name: category,
+      },
+    });
+    if (!newSneakerCategory)
+      throw new TypeError("category sent incorrectly");
+    Sneaker.setCategory(newSneakerCategory);
+
+    Sneaker.save();
+    res.status(200).send("successfully edited");
+  } catch (error) {
+    res.status(400).send(error);
+  }
+}; */
+
+module.exports = {Delete,getAll,getByBrandParams,getByCategoryParams,getByIdParams,getByQueryName};

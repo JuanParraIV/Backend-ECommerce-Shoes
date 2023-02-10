@@ -15,7 +15,6 @@ const ENV = {
   database: getEnvVariable('POSTGRES_DB'),
   port: Number(getEnvVariable('POSTGRES_PORT')) || 5432,*/
   api_port: Number(getEnvVariable('PORT')) || 5000,
-  databaseUrl: getEnvVariable('DATABASE_URL'),
 };
 module.exports = {
   ENV

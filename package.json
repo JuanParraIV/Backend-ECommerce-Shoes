@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node ./index.js",
+    "start": "node ./index.js",
     "fakeapi": "json-server --watch db.json --port 5050",
     "dev": "nodemon -L",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,5 +30,10 @@
     "nodemon": "^2.0.20",
     "pg": "^8.9.0",
     "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "stripe": "^11.9.1"
   }
 }

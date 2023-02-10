@@ -5,30 +5,7 @@ const { ENV } = require('./config');
 let sequelize = new Sequelize(ENV.databaseUrl,
   { logging: false, native: false }
 );
-/*
-  process.env.NODE_ENV === "production"
-  ? new Sequelize({
-    database: ENV.database,
-    dialect: "postgres",
-    host: ENV.host,
-    port: ENV.port,
-    username: ENV.username,
-    password: ENV.password,
-    pool: {
-      max: 3,
-      min: 1,
-      idle: 10000,
-    },
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-      keepAlive: true,
-    },
-    ssl: true,
-  })
-  : */
+
 
 /* const sequelize = new Sequelize(`postgres://${ENV.user}:${ENV.password}@${ENV.host}/${ENV.database}`, {
   logging: false, // set to console.log to see the raw SQL queries
@@ -54,10 +31,42 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Category, Sneaker, Brand } = sequelize.models;
+
+
+const { Category, Sneaker, Brand, Admin, Cart, Payment,User,Trolley,Transactions, Favorite} = sequelize.models;
 
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+/* Admin.hasMany(Sneaker);
+Sneaker.belongsTo(Admin); */
+
+User.hasOne(Favorite);
+Favorite.belongsTo(User, {
+  onDelete: "cascade",
+  onUpdate: "cascade",
+  hooks: true,
+})
+
+Transactions.hasOne(User);
+User.belongsTo(Transactions,{
+  onDelete: "cascade",
+  onUpdate: "cascade",
+  hooks: true,
+})
+
+User.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(User, {
+  through: Trolley,
+});
+
+
+Payment.belongsToMany(Cart, {
+  through: "Transaction",
+});
+Cart.belongsToMany(Payment, {
+  through: "Transaction",
+});
 Brand.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
 Sneaker.belongsTo(Brand);
 Category.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
