@@ -84,7 +84,7 @@ const getByCategoryParams = async (req, res, next) => {
 
 const getByQueryName = async (req, res, next) => {
   try {
-    const { category_name, brand_name, name} = req.query;
+    const { category_name, brand_name, name } = req.query;
     const where = {};
 
     if (name) {
@@ -123,8 +123,8 @@ const getByQueryName = async (req, res, next) => {
   }
 };
 
-/* const Add = async (req, res, next) => {
-  const { name, brand, price, img, description, stock, status, category } =
+const Add = async (req, res, next) => {
+  const { brand_name, category_name, name, retail_price_cents, color, size_range, grid_picture_url, original_picture_url, main_picture_url, details, stock, status } =
     req.body;
 
   const nameUpperCase = name.split(" ");
@@ -143,22 +143,14 @@ const getByQueryName = async (req, res, next) => {
     if (!newSneakerCategory) {
       throw new TypeError("Category not found");
     } else {
-      let newSneaker = await Sneaker.create({
-        name: finalName,
-        brand,
-        price,
-        img,
-        description,
-        stock,
-        status,
-      });
+      let newSneaker = await Sneaker.create({ brand_name, category_name, name, retail_price_cents, color, size_range, grid_picture_url, original_picture_url, main_picture_url, details, stock, status });
       await newSneaker.setCategory(newSneakerCategory);
       return res.status(200).json({ message: "Activity successfully added" });
     }
   } catch (error) {
     next(error);
   }
-}; */
+};
 const Delete = async (req, res) => {
   const { id } = req.body;
   try {
@@ -238,4 +230,4 @@ const Delete = async (req, res) => {
   }
 }; */
 
-module.exports = {Delete,getAll,getByBrandParams,getByCategoryParams,getByIdParams,getByQueryName};
+module.exports = { Delete, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };

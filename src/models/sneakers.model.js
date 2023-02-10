@@ -33,11 +33,11 @@ module.exports = (sequelize) => {
       },
       original_picture_url: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       main_picture_url: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       details: {
         type: DataTypes.TEXT,
