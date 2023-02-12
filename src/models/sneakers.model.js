@@ -56,7 +56,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM("New", "Used"),
         allowNull: false,
       },
-      raiting:{
+      rating:{
         type:DataTypes.INTEGER(),
         allowNull:true
       }
