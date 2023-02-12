@@ -260,4 +260,4 @@ const Modify = async (req, res) => {
   }
 };
 
-module.exports = { Add, Delete, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };
+module.exports = { Add, Delete, Modify, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };
