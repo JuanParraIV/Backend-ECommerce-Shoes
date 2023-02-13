@@ -150,7 +150,7 @@ const Add = async (req, res, next) => {
   try {
     let newSneakerCategory = await Category.findOne({
       where: {
-        name: category,
+        name: category_name,
       },
     });
     if (!newSneakerCategory) {
