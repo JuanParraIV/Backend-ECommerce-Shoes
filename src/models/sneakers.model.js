@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
         defaultValue: false,
       },
       status: {
-        type: DataTypes.ENUM("New", "Used"),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       raiting:{

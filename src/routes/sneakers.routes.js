@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Delete,getAll, getByCategoryParams, getByBrandParams, getByQueryName, getByIdParams } = require('../services/sneakers.service');
+const { createNewProducts, Delete,getAll, getByCategoryParams, getByBrandParams, getByQueryName, getByIdParams } = require('../services/sneakers.service');
 const { verifyToken } = require("../middleware/authjwt");
 const { verifyTokenAdmin } = require("../middleware/authjwtadmin");
 const router = Router();
@@ -12,7 +12,7 @@ router.get('/all', getAll);
 router.get('/:id', getByIdParams);
 router.get('/', getByQueryName);
 //router.put("/",[verifyTokenAdmin], Modify);
-//router.post("/",[verifyTokenAdmin], Add);
+router.post("/",[verifyTokenAdmin], createNewProducts);
 router.delete("/",[verifyTokenAdmin], Delete);
 
 module.exports = router;

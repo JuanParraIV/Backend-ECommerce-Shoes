@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Sneaker } = require('../libs/postgres');
+const { Sneaker, Category } = require('../libs/postgres');
 
 
 const getAll = async (req, res) => {
@@ -123,7 +123,7 @@ const getByQueryName = async (req, res, next) => {
   }
 };
 
-const Add = async (req, res, next) => {
+const createNewProducts = async (req, res, next) => {
   const { brand_name, category_name, name, retail_price_cents, color, size_range, grid_picture_url, original_picture_url, main_picture_url, details, stock, status } =
     req.body;
 
@@ -137,7 +137,7 @@ const Add = async (req, res, next) => {
   try {
     let newSneakerCategory = await Category.findOne({
       where: {
-        name: category,
+        name: category_name,
       },
     });
     if (!newSneakerCategory) {
@@ -230,4 +230,4 @@ const Delete = async (req, res) => {
   }
 }; */
 
-module.exports = { Delete, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };
+module.exports = { createNewProducts, Delete, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };
