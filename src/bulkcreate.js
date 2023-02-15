@@ -10,12 +10,6 @@ const axios = require("axios");
 
 const allData = async (req, res, next) => {
   try {
-    /* const getCategoriesFromJson = await axios.get(
-      `http://localhost:5050/categories/`);
-    const getSneakersFromJson = await axios.get(
-      `http://localhost:5050/sneakers/`);
-    const categories = getCategoriesFromJson.data;
-    const sneakers = getSneakersFromJson.data; */
 
     const adminValidation = await Admin.findOne({
       where: { id: 1 },
@@ -63,6 +57,7 @@ const allData = async (req, res, next) => {
               name: category,
             },
           });
+        
           const brand = e.brand_name;
           let newSneakerBrand = await Brand.findOne({
             where: {

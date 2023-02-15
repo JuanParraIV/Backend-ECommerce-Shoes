@@ -5,7 +5,7 @@ const { Transactions, User, Sneaker } = require("../libs/postgres");
 
 
 const stripe = new Stripe(
-  "sk_test_51LVhuNGZCoUhdemptaUZ7R1FtKjZt5lXBfjDjnEoMCTzdXZEGCef4Rd2uFXrTgHQTYn8cwlT0Qe61MCqukegSG6O006mIwMcu7"
+  "sk_test_51MbTIzJhcFAZvo86Za54V9NR58B67C2DTjAyK73m4ub9t0Xp5EO5QLTJxJeiP1kgoNeHinhl3lLprQHxJyyTeQKh00HJtKVTpy"
 );
 
 const crearTransactions = async (id, userInfo, items) => {

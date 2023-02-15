@@ -123,8 +123,22 @@ const getByQueryName = async (req, res, next) => {
   }
 };
 
-const createNewProducts = async (req, res, next) => {
-  const { brand_name, category_name, name, retail_price_cents, color, size_range, grid_picture_url, original_picture_url, main_picture_url, details, stock, status } =
+const Add = async (req, res, next) => {
+  const {
+    brand_name,
+    category_name,
+    name,
+    retail_price_cents,
+    color,
+    size_range,
+    grid_picture_url,
+    original_picture_url,
+    main_picture_url,
+    details,
+    stock,
+    status
+  } =
+
     req.body;
 
   const nameUpperCase = name.split(" ");
@@ -170,31 +184,42 @@ const Delete = async (req, res) => {
   }
 };
 
-/* const Modify = async (req, res) => {
+const Modify = async (req, res) => {
   try {
     const {
       id,
+      brand_name,
+      category_name,
       name,
-      brand,
-      price,
-      img,
-      description,
+      retail_price_cents,
+      color,
+      size_range,
+      grid_picture_url,
+      original_picture_url,
+      main_picture_url,
+      details,
       stock,
       status,
-      category,
+      rating,
       isBanned,
     } = req.body;
 
     if (
       !id ||
+      !brand_name ||
+      !category_name ||
+      !retail_price_cents ||
+      !color ||
       !name ||
-      !brand ||
-      !price ||
-      !img ||
-      !description ||
+      !size_range ||
+      !grid_picture_url ||
+      !original_picture_url ||
+      !main_picture_url ||
+      !details ||
+      !main_picture_url ||
       !stock ||
       !status ||
-      !category ||
+      !rating ||
       isBanned === null
     ) {
       throw new TypeError("data sent incorrectly");
@@ -204,13 +229,19 @@ const Delete = async (req, res) => {
     if (!Sneaker) throw new TypeError("incorrect id");
 
     await Sneaker.update({
+      brand_name,
+      category_name,
       name,
-      brand,
-      price: parseInt(price),
-      img,
-      description,
+      retail_price_cents: parseInt(retail_price_cents),
+      color,
+      size_range,
+      grid_picture_url,
+      original_picture_url,
+      main_picture_url,
+      details,
       stock: parseInt(stock),
       status,
+      rating,
       isBanned: stock == 0 ? true : false,
     });
 
@@ -228,6 +259,7 @@ const Delete = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-}; */
+};
 
-module.exports = { createNewProducts, Delete, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };
+module.exports = { Add, Delete, Modify, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };
+

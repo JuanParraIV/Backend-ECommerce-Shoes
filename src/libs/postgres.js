@@ -2,32 +2,10 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const { ENV } = require('./config');
-let sequelize =
-  process.env.NODE_ENV === "production"
-    ? new Sequelize({
-      database: ENV.database,
-      dialect: "postgres",
-      host: ENV.host,
-      port: ENV.port,
-      username: ENV.username,
-      password: ENV.password,
-      pool: {
-        max: 3,
-        min: 1,
-        idle: 10000,
-      },
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-        keepAlive: true,
-      },
-      ssl: true,
-    })
-    : new Sequelize(`postgres://${ENV.username}:${ENV.password}@${ENV.host}/${ENV.database}`,
-      { logging: false, native: false }
-    );
+let sequelize = new Sequelize(ENV.databaseUrl,
+  { logging: false, native: false }
+);
+
 
 /* const sequelize = new Sequelize(`postgres://${ENV.user}:${ENV.password}@${ENV.host}/${ENV.database}`, {
   logging: false, // set to console.log to see the raw SQL queries
@@ -53,11 +31,33 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Category, Sneaker, Brand, Admin, Cart, Payment,User,Trolley,Transactions, Favorite} = sequelize.models;
+
+
+const { UserGoogle, Category, Sneaker, Brand, Admin, Cart, Payment,User,Trolley,Transactions, Favorite} = sequelize.models;
 
 // Aca vendrian las relaciones
 /* Admin.hasMany(Sneaker);
 Sneaker.belongsTo(Admin); */
+UserGoogle.hasOne(Favorite);
+Favorite.belongsTo(UserGoogle, {
+  onDelete: "cascade",
+  onUpdate: "cascade",
+  hooks: true,
+})
+
+Transactions.hasOne(UserGoogle);
+UserGoogle.belongsTo(Transactions,{
+  onDelete: "cascade",
+  onUpdate: "cascade",
+  hooks: true,
+})
+
+UserGoogle.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(UserGoogle, {
+  through: Trolley,
+});
 
 User.hasOne(Favorite);
 Favorite.belongsTo(User, {
@@ -91,6 +91,7 @@ Brand.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true }
 Sneaker.belongsTo(Brand);
 Category.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
 Sneaker.belongsTo(Category);
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

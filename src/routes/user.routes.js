@@ -17,7 +17,7 @@ const {
 } = require("../services/users.service");
 
 router.get("/", getUsers);
-router.get("/token", [verifyToken], getUserToken);
+router.get("/profile", [verifyToken], getUserToken);
 router.post("/all", postUsersAll);
 router.post("/", postUser);
 router.delete("/:id", deleteUser);
