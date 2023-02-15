@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Sneaker } = require('../libs/postgres');
+const { Sneaker, Category } = require('../libs/postgres');
 
 
 const getAll = async (req, res) => {
