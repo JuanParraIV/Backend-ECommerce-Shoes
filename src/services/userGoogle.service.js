@@ -1,17 +1,17 @@
-const { User, Admin, Sneaker } = require("../libs/postgres");
+const { userGoogle, Admin, Sneaker } = require("../libs/postgres");
 const { Op } = require("sequelize");
 
 const getAll = async (req, res) => {
   try {
     let userName = req.query.userName;
     if (userName) {
-      let users = await User.findAll({
+      let users = await userGoogle.findAll({
         where: { userName: { [Op.iLike]: `%${userName}%` } },
       });
       if (users.length) return res.status(200).send(users);
       else return res.status(400).send("Users " + userName + " not found");
     } else {
-      let users = await User.findAll();
+      let users = await userGoogle.findAll();
       if (users.length) return res.status(200).send(users);
       else return res.status(200).send([]);
     }
@@ -24,7 +24,7 @@ const getUserToken = async (req, res) => {
   try {
     let id = req.user_id;
     if (id) {
-      let userExist = await User.findByPk(id, {
+      let userExist = await userGoogle.findByPk(id, {
         include: { model: Sneaker },
       });
       if (!userExist) throw new TypeError("Error, User not found with this Id");
@@ -46,7 +46,7 @@ const postUser = async (req, res) => {
       if (admin) {
         throw new TypeError("Error, User exist");
       }
-      await User.create(req.body);
+      await userGoogle.create(req.body);
       res.status(200).send({ ok: "User created!" });
     } else {
       throw new TypeError("Error, User information invalid");

@@ -33,11 +33,31 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 
-const { Category, Sneaker, Brand, Admin, Cart, Payment,User,Trolley,Transactions, Favorite} = sequelize.models;
+const { UserGoogle, Category, Sneaker, Brand, Admin, Cart, Payment,User,Trolley,Transactions, Favorite} = sequelize.models;
 
 // Aca vendrian las relaciones
 /* Admin.hasMany(Sneaker);
 Sneaker.belongsTo(Admin); */
+UserGoogle.hasOne(Favorite);
+Favorite.belongsTo(UserGoogle, {
+  onDelete: "cascade",
+  onUpdate: "cascade",
+  hooks: true,
+})
+
+Transactions.hasOne(UserGoogle);
+UserGoogle.belongsTo(Transactions,{
+  onDelete: "cascade",
+  onUpdate: "cascade",
+  hooks: true,
+})
+
+UserGoogle.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(UserGoogle, {
+  through: Trolley,
+});
 
 User.hasOne(Favorite);
 Favorite.belongsTo(User, {

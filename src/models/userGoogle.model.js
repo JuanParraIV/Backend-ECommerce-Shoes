@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "userGoogle",
+    "UserGoogle",
     {
       dni: {
         type: DataTypes.BIGINT,
