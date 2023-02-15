@@ -41,7 +41,7 @@ const postUser = async (req, res) => {
   try {
     if (family_name && email && given_name && name && nickname && picture) {
       const admin = await Admin.findOne({
-        where: { [Op.and]: [{ nickname: nickname }, { email: email }] },
+        where: { [Op.and]: [{ userName: nickname }, { email: email }] },
       });
       if (admin) {
         throw new TypeError("Error, User exist");
