@@ -17,7 +17,7 @@ const controllerRegister = async (req, res) => {
     await User.create(req.body);
     return res.status(201).json({ ok: "User created!" });
   } catch (error) {
-    return res.status(40git ad4).send(error.message);
+    return res.status(404).send(error.message);
   }
 };
 
