@@ -1,17 +1,17 @@
-const { userGoogle, Admin, Sneaker } = require("../libs/postgres");
+const { UserGoogle, Admin, Sneaker } = require("../libs/postgres");
 const { Op } = require("sequelize");
 
 const getAll = async (req, res) => {
   try {
     let userName = req.query.userName;
     if (userName) {
-      let users = await userGoogle.findAll({
+      let users = await UserGoogle.findAll({
         where: { userName: { [Op.iLike]: `%${userName}%` } },
       });
       if (users.length) return res.status(200).send(users);
       else return res.status(400).send("Users " + userName + " not found");
     } else {
-      let users = await userGoogle.findAll();
+      let users = await UserGoogle.findAll();
       if (users.length) return res.status(200).send(users);
       else return res.status(200).send([]);
     }
@@ -24,7 +24,7 @@ const getUserToken = async (req, res) => {
   try {
     let id = req.user_id;
     if (id) {
-      let userExist = await userGoogle.findByPk(id, {
+      let userExist = await UserGoogle.findByPk(id, {
         include: { model: Sneaker },
       });
       if (!userExist) throw new TypeError("Error, User not found with this Id");
@@ -39,14 +39,21 @@ const getUserToken = async (req, res) => {
 const postUser = async (req, res) => {
   const { email, family_name, given_name, name, nickname, picture } = req.body;
   try {
-    if (family_name && email && given_name && name && nickname && picture) {
-      const admin = await Admin.findOne({
-        where: { [Op.and]: [{ userName: nickname }, { email: email }] },
+    if (email && family_name && given_name && name && nickname && picture) {
+      const user = await UserGoogle.findOne({
+        where: { email },
       });
-      if (admin) {
+      if (user) {
         throw new TypeError("Error, User exist");
       }
-      await userGoogle.create(req.body);
+      await UserGoogle.create({
+        email,
+        family_name,
+        given_name,
+        name,
+        nickname,
+        picture,
+      });
       res.status(200).send({ ok: "User created!" });
     } else {
       throw new TypeError("Error, User information invalid");
