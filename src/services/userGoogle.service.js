@@ -37,16 +37,12 @@ const getUserToken = async (req, res) => {
 };
 
 const postUser = async (req, res) => {
-  const { userName, email, password } = req.body;
+  const { email, family_name, given_name, name, nickname, picture } = req.body;
   try {
-    if (userName && email && password) {
+    if (family_name && email && given_name && name && nickname && picture) {
       const admin = await Admin.findOne({
-        where: { [Op.and]: [{ userName: userName }, { email: email }] },
+        where: { [Op.and]: [{ nickname: nickname }, { email: email }] },
       });
-      if (admin) {
-        throw new TypeError("Error, User exist");
-      }
-
       if (admin) {
         throw new TypeError("Error, User exist");
       }
