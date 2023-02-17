@@ -8,7 +8,7 @@ const stripe = new Stripe(
   "sk_test_51MbTIzJhcFAZvo86Za54V9NR58B67C2DTjAyK73m4ub9t0Xp5EO5QLTJxJeiP1kgoNeHinhl3lLprQHxJyyTeQKh00HJtKVTpy"
 );
 
-const crearTransactions = async (userId, userType, items, userInfo) => {
+const crearTransactions = async (user_Id, userType, items, userInfo) => {
   let cost = 0;
   for (let i = 0; i < items.length; i++) {
     cost = cost + (items[i].price * items[i].count);
@@ -20,7 +20,7 @@ const crearTransactions = async (userId, userType, items, userInfo) => {
   }
 
   let orden = await Transactions.create({
-    userId,
+    userId:user_Id,
     status: "successful",
     cost,
     cus_address: userInfo.cus_address,
@@ -34,8 +34,8 @@ const crearTransactions = async (userId, userType, items, userInfo) => {
   });
 
   let usuario = userType === "user"
-    ? await User.findOne({ where: { id: userId } })
-    : await UserGoogle.findOne({ where: { id: userId } });
+    ? await User.findOne({ where: { id: user_Id } })
+    : await UserGoogle.findOne({ where: { id: user_Id } });
   orden.setUser(usuario);
   await orden.save();
 };
