@@ -11,11 +11,11 @@ const stripe = new Stripe(
 const crearTransactions = async (user_Id, userType, items, userInfo) => {
   let cost = 0;
   for (let i = 0; i < items.length; i++) {
-    cost += items[i].price * items[i].count;
+    cost += items[i].retail_price_cents * items[i].quantity;
 
     let sneakerToDecreaseStock = await Sneaker.findByPk(items[i].id);
     let actualStock = sneakerToDecreaseStock.stock;
-    let newStock = actualStock - items[i].count;
+    let newStock = actualStock - items[i].quantity;
     sneakerToDecreaseStock.set({ stock: newStock });
     await sneakerToDecreaseStock.save();
   }
