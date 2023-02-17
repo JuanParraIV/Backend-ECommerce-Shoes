@@ -43,7 +43,7 @@ module.exports = (sequelize) => {
                 type: DataTypes.INTEGER(),
                 allowNull: false,
             },
-            instrument:{
+            sneaker:{
                 type:DataTypes.ARRAY(DataTypes.JSONB()),
                 allowNull:false
             },
