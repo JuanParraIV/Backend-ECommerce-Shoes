@@ -20,7 +20,7 @@ const crearTransactions = async (user_Id, userType, items, userInfo) => {
   }
 
   let orden = await Transactions.create({
-    userId:user_Id,
+    userId: user_Id,
     status: "successful",
     cost,
     cus_address: userInfo.cus_address,
@@ -42,12 +42,21 @@ const crearTransactions = async (user_Id, userType, items, userInfo) => {
 
 const handlePayStripe = async (req, res) => {
   const { id, items, amount, token, userInfo } = req.body;
-  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+  console.log(token);
+
+  let decodedToken;
+  if (typeof token.token === 'string') {
+    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+  } else {
+    return res.status(400).send('Invalid token');
+  }
+
   const user_id = decodedToken.user_id;
-  const userType = decodedToken.userType;
+  const userType = token.userType;
 
   console.log("soy el amount: ", amount);
   const description = items.map((item) => item.id).join(", ");
+  console.log(description);
 
   const payment = await stripe.paymentIntents
     .create({
@@ -59,12 +68,14 @@ const handlePayStripe = async (req, res) => {
     })
     .then(async (answer) => {
       console.log("ANSWWW:", answer.status);
+      console.log(user_id, userType);
       await crearTransactions(user_id, userType, items, userInfo);
       res.json(answer.status);
     })
     .catch((err) => {
-      console.log("ERRRRR:", err.raw.message);
-      res.status(400).send(err.raw.message);
+      const errorMessage = err.raw ? err.raw.message : err.message;
+      console.log("ERRRRR:", errorMessage);
+      res.status(400).send(errorMessage);
     });
 };
 
