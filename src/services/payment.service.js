@@ -57,7 +57,7 @@ const handlePayStripe = async (req, res) => {
   const userType = token.userType;
 
   console.log("Amount:", amount);
-  const description = items.map((item) => item.details);
+  const description = items.map((item) => item.details).join(", ");
   console.log("Description:", description);
 
   try {
