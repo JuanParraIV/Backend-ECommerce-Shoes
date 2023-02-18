@@ -74,18 +74,24 @@ const add_trolley = async (req, res) => {
   if (userType === "googleUser") usuario = findGoogleUser;
 
   const products = await Sneaker.findAll({ where: { id: productIds } });
-  const sneakerIds = products.map(item => item.id);
+  const productDict = products.reduce((dict, product) => ({...dict, [product.id]: product}), {});
 
   if (!usuario || !products) {
     return res.status(404).json({ message: 'Usuario o producto no encontrado' });
   }
 
   try {
-    const trolleyItems = sneakerIds.map((sneakerId, index) => ({
-      userId: usuario.id,
-      sneakerId,
-      quantity: quantities[index]
-    }));
+    const trolleyItems = items.map((item) => {
+      const product = productDict[item.id];
+      if (!product) {
+        throw new Error(`Producto no encontrado con ID ${item.id}`);
+      }
+      return {
+        userId: usuario.id,
+        sneakerId: product.id,
+        quantity: item.quantity
+      }
+    });
 
     await Trolley.bulkCreate(trolleyItems);
 
