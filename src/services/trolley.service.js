@@ -34,7 +34,7 @@ const add_trolley = async (req, res) => {
       });
       if (trolleyItem) {
         trolleyItem.quantity += quantities[index];
-        await trolleyItem.save();
+        await trolleyItem.update({ quantity: trolleyItem.quantity });
         return trolleyItem;
       } else {
         const newTrolleyItem = await Trolley.create({
