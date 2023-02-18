@@ -3,7 +3,7 @@ const { User, Trolley, Sneaker, Category, UserGoogle } = require("../libs/postgr
 const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
-const add_trolley = async (req, res) => {
+/* const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
   const decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
 
@@ -50,9 +50,9 @@ const add_trolley = async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
   }
-};
+}; */
 
-/* const add_trolley = async (req, res) => {
+const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
   let decodedToken;
   if (token && token.token) {
@@ -93,7 +93,7 @@ const add_trolley = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-}; */
+};
 
 const get_trolley = async (req, res) => {
   let user_id = req.user_id;
