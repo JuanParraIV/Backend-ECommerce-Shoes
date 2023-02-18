@@ -6,11 +6,21 @@ const { user } = require("pg/lib/defaults");
 
 
 const add_trolley = async (req, res) => {
+  const { items, amount, token } = req.body;
+
+  let decodedToken;
+  if (typeof token.token === 'string') {
+    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+  } else {
+    return res.status(400).send('Invalid token');
+  }
+  const userId = decodedToken.user_id;
+  const userType = token.userType;
   let user_id = req.user_id;
-  let SneakerId = req.body.id;
+  let SneakerId = items.map(item=>item.id);
   if (!SneakerId) return res.status(400).send("no se envio el id del sneaker por body");
   try {
-    let carrito = await Trolley.create({ userId: user_id, SneakerId });
+    let carrito = await Trolley.create({ userId, SneakerId });
 
     res.send("Se agrego el Sneaker al carrito");
 

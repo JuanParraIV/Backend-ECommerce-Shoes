@@ -4,10 +4,6 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Trolley",
     {
-        // buyerAddress: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        //   },
       userId:{
         type:DataTypes.INTEGER(),
         allownull:false

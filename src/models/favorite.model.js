@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
         autoincrement: true,
         allowNull: false,
       },
-      instruments: {
+      sneakers: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
