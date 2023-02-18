@@ -3,7 +3,7 @@ const { User, Trolley, Sneaker, Category, UserGoogle } = require("../libs/postgr
 const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
-const add_trolley = async (req, res) => {
+/* const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
   let decodedToken;
   if (token && token.token) {
@@ -23,41 +23,6 @@ const add_trolley = async (req, res) => {
   const products = await Sneaker.findAll({ where: { id: productIds } });
   const sneakerIds = products.map(item => item.id);
 
-  /* let usuario;
-  if (userType === "user") usuario = findUser;
-  if (userType === "googleUser") usuario = findGoogleUser;
-
-  if (!usuario || !products) {
-    return res.status(404).json({ message: 'Usuario o producto no encontrado' });
-  }
-
-  try {
-    const trolleyItems = await Promise.all(sneakerIds.map(async (sneakerId, index) => {
-      const product = products.find(p => p.id === sneakerId);
-      const trolleyItem = await Trolley.findOne({
-        where: {
-          userId: usuario.id,
-          sneakerId: sneakerId
-        }
-      });
-      if (trolleyItem) {
-        trolleyItem.quantity = quantities[index];
-        await trolleyItem.save();
-        return trolleyItem;
-      } else {
-        const newTrolleyItem = await Trolley.create({
-          userId: usuario.id,
-          sneakerId: sneakerId,
-          quantity: quantities[index]
-        });
-        return newTrolleyItem;
-      }
-    }));
-
-    res.send('Se agregaron los items al carrito');
-  } catch (error) {
-    res.status(400).send(error);
-  } */
   let usuario;
 if (userType === 'user') {
   usuario = findUser;
@@ -97,6 +62,73 @@ try {
 } catch (error) {
   res.status(400).send(error);
 }
+}; */
+
+const add_trolley = async (req, res) => {
+  const { items, amount, token } = req.body;
+  let decodedToken;
+  if (token && token.token) {
+    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+  } else {
+    return res.status(400).send('Invalid token');
+  }
+
+  const userId = decodedToken.user_id;
+  const userType = token.userType;
+  const quantities = items.map(item => item.quantity);
+  const productIds = items.map(item => item.id);
+
+  let usuario;
+  let userAssociation;
+
+  if (userType === 'user') {
+    usuario = await User.findByPk(userId);
+    userAssociation = User;
+  } else if (userType === 'googleUser') {
+    usuario = await UserGoogle.findByPk(userId);
+    userAssociation = UserGoogle;
+  }
+
+  if (!usuario) {
+    return res.status(404).json({ message: 'Usuario no encontrado' });
+  }
+
+  const products = await Sneaker.findAll({ where: { id: productIds } });
+  const sneakerIds = products.map(item => item.id);
+
+  if (!products) {
+    return res.status(404).json({ message: 'Productos no encontrados' });
+  }
+
+  try {
+    const trolleyItems = await Promise.all(sneakerIds.map(async (sneakerId, index) => {
+      const product = products.find(p => p.id === sneakerId);
+      const trolleyItem = await Trolley.findOne({
+        where: {
+          [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id,
+          sneakerId: sneakerId
+        }
+      });
+
+      if (trolleyItem) {
+        trolleyItem.quantity = quantities[index];
+        await trolleyItem.save();
+        return trolleyItem;
+      } else {
+        const newTrolleyItem = await Trolley.create({
+          [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id,
+          sneakerId: sneakerId,
+          quantity: quantities[index]
+        });
+        await newTrolleyItem[`set${userAssociation.name}`](usuario);
+        return newTrolleyItem;
+      }
+    }));
+
+    res.send('Se agregaron los items al carrito');
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 
 const get_trolley = async (req, res) => {

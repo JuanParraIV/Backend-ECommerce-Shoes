@@ -52,10 +52,20 @@ UserGoogle.belongsTo(Transactions,{
   hooks: true,
 })
 
-UserGoogle.hasMany(Trolley);
-Sneaker.hasMany(Trolley);
-Trolley.belongsTo(UserGoogle);
-Trolley.belongsTo(Sneaker);
+UserGoogle.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(UserGoogle, {
+  through: Trolley,
+});
+
+User.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(User, {
+  through: Trolley,
+});
+
 
 User.hasOne(Favorite);
 Favorite.belongsTo(User, {
@@ -70,11 +80,15 @@ User.belongsTo(Transactions,{
   onUpdate: "cascade",
   hooks: true,
 })
+/* UserGoogle.hasMany(Trolley);
+Sneaker.hasMany(Trolley);
+Trolley.belongsTo(UserGoogle);
+Trolley.belongsTo(Sneaker); */
 
-User.hasMany(Trolley);
+/* User.hasMany(Trolley);
 Sneaker.hasMany(Trolley);
 Trolley.belongsTo(User);
-Trolley.belongsTo(Sneaker);
+Trolley.belongsTo(Sneaker); */
 
 
 Payment.belongsToMany(Cart, {

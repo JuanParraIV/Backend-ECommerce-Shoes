@@ -22,24 +22,8 @@ const getUsers = async (req, res) => {
     return res.status(400).send(error.message);
   }
 };
+
 const getUserToken = async (req, res) => {
-  try {
-    const userId = req.user_id;
-    if (userId) {
-      const user = await User.findByPk(userId, {
-        include: [{ model: Trolley, include: [Sneaker] }],
-      });
-      if (!user) {
-        throw new TypeError(`User not found with id ${userId}`);
-      }
-      return res.status(200).send(user);
-    }
-  } catch (error) {
-    console.error(error);
-    return res.status(400).send(error);
-  }
-};
-/* const getUserToken = async (req, res) => {
   try {
     let id = req.user_id;
     if (id) {
@@ -53,7 +37,7 @@ const getUserToken = async (req, res) => {
     console.log(e);
     return res.status(400).send(e);
   }
-}; */
+};
 
 const postUser = async (req, res) => {
   const { userName, email, password } = req.body;
