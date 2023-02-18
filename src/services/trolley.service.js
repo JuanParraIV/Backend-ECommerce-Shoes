@@ -3,7 +3,7 @@ const { User, Trolley, Sneaker, Category, UserGoogle } = require("../libs/postgr
 const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
-/* const add_trolley = async (req, res) => {
+const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
   const decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
 
@@ -21,7 +21,7 @@ const { user } = require("pg/lib/defaults");
   }
 
   try {
-    const cartItems = await Promise.all(productIds.map(async (productId, index) => {
+    await Promise.all(productIds.map(async (productId, index) => {
       const product = await Sneaker.findByPk(productId);
       if (!product) {
         throw new Error(`Producto no encontrado con ID ${productId}`);
@@ -34,15 +34,13 @@ const { user } = require("pg/lib/defaults");
       });
       if (trolleyItem) {
         trolleyItem.quantity += quantities[index];
-        await trolleyItem.update({ quantity: trolleyItem.quantity });
-        return trolleyItem;
+        await trolleyItem.save();
       } else {
-        const newTrolleyItem = await Trolley.create({
+        await Trolley.upsert({
           userId: usuario.id,
           sneakerId: product.id,
           quantity: quantities[index]
         });
-        return newTrolleyItem;
       }
     }));
 
@@ -50,9 +48,9 @@ const { user } = require("pg/lib/defaults");
   } catch (error) {
     res.status(400).send(error.message);
   }
-}; */
+};
 
-const add_trolley = async (req, res) => {
+/* const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
   let decodedToken;
   if (token && token.token) {
@@ -106,7 +104,7 @@ const add_trolley = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-};
+}; */
 
 const get_trolley = async (req, res) => {
   let user_id = req.user_id;
