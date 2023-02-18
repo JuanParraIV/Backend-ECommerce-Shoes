@@ -1,13 +1,11 @@
-
-
-const { User, Trolley, Sneaker, Category } = require("../libs/postgres");
+const jwt = require("jsonwebtoken");
+const { User, Trolley, Sneaker, Category, UserGoogle } = require("../libs/postgres");
 const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
 
 const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
-
   let decodedToken;
   if (token && token.token) {
     decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
@@ -16,16 +14,32 @@ const add_trolley = async (req, res) => {
   }
 
   const userId = decodedToken.user_id;
-  const userType = token.userType || 'guest';
+  const userType = token.userType;
+  const quantities = items.map(item => item.quantity);
+  const productIds = items.map(item => item.id);
 
-  let SneakerId = JSON.stringify(items);
+  const findUser = await User.findOne({ where: { id: userId } });
+  const findGoogleUser = await UserGoogle.findOne({ where: { id: userId } });
 
-  if (!SneakerId) {
-    return res.status(400).send('No se enviaron items en el carrito');
+  let usuario;
+  if (userType === "user") usuario = findUser;
+  if (userType === "googleUser") usuario = findGoogleUser;
+
+  const products = await Sneaker.findAll({ where: { id: productIds } });
+  const sneakerIds = products.map(item => item.id);
+
+  if (!usuario || !products) {
+    return res.status(404).json({ message: 'Usuario o producto no encontrado' });
   }
 
   try {
-    let carrito = await Trolley.create({ userId, SneakerId });
+    const trolleyItems = sneakerIds.map((sneakerId, index) => ({
+      userId: usuario.id,
+      sneakerId,
+      quantity: quantities[index]
+    }));
+
+    await Trolley.bulkCreate(trolleyItems);
 
     res.send('Se agregaron los items al carrito');
   } catch (error) {

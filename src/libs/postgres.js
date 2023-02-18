@@ -52,12 +52,10 @@ UserGoogle.belongsTo(Transactions,{
   hooks: true,
 })
 
-UserGoogle.belongsToMany(Sneaker, {
-  through: Trolley,
-});
-Sneaker.belongsToMany(UserGoogle, {
-  through: Trolley,
-});
+UserGoogle.hasMany(Trolley);
+Sneaker.hasMany(Trolley);
+Trolley.belongsTo(UserGoogle);
+Trolley.belongsTo(Sneaker);
 
 User.hasOne(Favorite);
 Favorite.belongsTo(User, {
@@ -73,12 +71,10 @@ User.belongsTo(Transactions,{
   hooks: true,
 })
 
-User.belongsToMany(Sneaker, {
-  through: Trolley,
-});
-Sneaker.belongsToMany(User, {
-  through: Trolley,
-});
+User.hasMany(Trolley);
+Sneaker.hasMany(Trolley);
+Trolley.belongsTo(User);
+Trolley.belongsTo(Sneaker);
 
 
 Payment.belongsToMany(Cart, {
