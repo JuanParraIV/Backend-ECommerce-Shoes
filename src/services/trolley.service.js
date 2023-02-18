@@ -9,21 +9,25 @@ const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
 
   let decodedToken;
-  if (typeof token.token === 'string') {
+  if (token && token.token) {
     decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
   } else {
     return res.status(400).send('Invalid token');
   }
+
   const userId = decodedToken.user_id;
-  const userType = token.userType;
-  let user_id = req.user_id;
-  let SneakerId = items.map(item=>item.id);
-  if (!SneakerId) return res.status(400).send("no se envio el id del sneaker por body");
+  const userType = token.userType || 'guest';
+
+  let SneakerId = JSON.stringify(items);
+
+  if (!SneakerId) {
+    return res.status(400).send('No se enviaron items en el carrito');
+  }
+
   try {
     let carrito = await Trolley.create({ userId, SneakerId });
 
-    res.send("Se agrego el Sneaker al carrito");
-
+    res.send('Se agregaron los items al carrito');
   } catch (error) {
     res.status(400).send(error);
   }
