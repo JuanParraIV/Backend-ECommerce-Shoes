@@ -5,7 +5,13 @@ const { user } = require("pg/lib/defaults");
 
 const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
-  const decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+  let decodedToken;
+  if (token && token.token) {
+    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+  } else {
+    return res.status(400).send('Invalid token');
+  }
+
   const userId = decodedToken.user_id;
   const userType = token.userType;
   const quantities = items.map(item => item.quantity);
@@ -13,42 +19,44 @@ const add_trolley = async (req, res) => {
 
   const findUser = await User.findOne({ where: { id: userId } });
   const findGoogleUser = await UserGoogle.findOne({ where: { id: userId } });
-  const usuario = userType === "user" ? findUser : findGoogleUser;
 
-  if (!usuario) {
-    return res.status(404).json({ message: 'Usuario no encontrado' });
+  let usuario;
+  if (userType === "user") usuario = findUser;
+  if (userType === "googleUser") usuario = findGoogleUser;
+
+  const products = await Sneaker.findAll({ where: { id: productIds } });
+  const sneakerIds = products.map(item => item.id);
+
+  if (!usuario || !products) {
+    return res.status(404).json({ message: 'Usuario o producto no encontrado' });
   }
 
   try {
-    const cartItems = await Promise.all(productIds.map(async (productId, index) => {
-      const product = await Sneaker.findByPk(productId);
-      if (!product) {
-        throw new Error(`Producto no encontrado con ID ${productId}`);
-      }
-
-      const [trolleyItem, created] = await Trolley.findOrCreate({
+    const trolleyItems = await Promise.all(sneakerIds.map(async (sneakerId, index) => {
+      const product = products.find(p => p.id === sneakerId);
+      const trolleyItem = await Trolley.findOne({
         where: {
           userId: usuario.id,
-          sneakerId: product.id
-        },
-        defaults: {
-          userId: usuario.id,
-          sneakerId: product.id,
-          quantity: quantities[index]
+          sneakerId: sneakerId
         }
       });
-
-      if (!created) {
-        trolleyItem.quantity += quantities[index];
+      if (trolleyItem) {
+        trolleyItem.quantity = quantities[index];
         await trolleyItem.save();
+        return trolleyItem;
+      } else {
+        const newTrolleyItem = await Trolley.create({
+          userId: usuario.id,
+          sneakerId: sneakerId,
+          quantity: quantities[index]
+        });
+        return newTrolleyItem;
       }
-
-      return trolleyItem;
     }));
 
     res.send('Se agregaron los items al carrito');
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 };
 
