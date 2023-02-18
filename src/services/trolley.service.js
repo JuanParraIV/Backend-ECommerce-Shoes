@@ -3,8 +3,56 @@ const { User, Trolley, Sneaker, Category, UserGoogle } = require("../libs/postgr
 const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
-
 const add_trolley = async (req, res) => {
+  const { items, amount, token } = req.body;
+  const decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+
+  const userId = decodedToken.user_id;
+  const userType = token.userType;
+  const quantities = items.map(item => item.quantity);
+  const productIds = items.map(item => item.id);
+
+  const findUser = await User.findOne({ where: { id: userId } });
+  const findGoogleUser = await UserGoogle.findOne({ where: { id: userId } });
+  const usuario = userType === "user" ? findUser : findGoogleUser;
+
+  if (!usuario) {
+    return res.status(404).json({ message: 'Usuario no encontrado' });
+  }
+
+  try {
+    const cartItems = await Promise.all(productIds.map(async (productId, index) => {
+      const product = await Sneaker.findByPk(productId);
+      if (!product) {
+        throw new Error(`Producto no encontrado con ID ${productId}`);
+      }
+      const trolleyItem = await Trolley.findOne({
+        where: {
+          userId: usuario.id,
+          sneakerId: product.id
+        }
+      });
+      if (trolleyItem) {
+        trolleyItem.quantity += quantities[index];
+        await trolleyItem.save();
+        return trolleyItem;
+      } else {
+        const newTrolleyItem = await Trolley.create({
+          userId: usuario.id,
+          sneakerId: product.id,
+          quantity: quantities[index]
+        });
+        return newTrolleyItem;
+      }
+    }));
+
+    res.send('Se agregaron los items al carrito');
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+/* const add_trolley = async (req, res) => {
   const { items, amount, token } = req.body;
   let decodedToken;
   if (token && token.token) {
@@ -45,7 +93,7 @@ const add_trolley = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-};
+}; */
 
 const get_trolley = async (req, res) => {
   let user_id = req.user_id;
