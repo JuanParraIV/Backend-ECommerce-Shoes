@@ -169,8 +169,7 @@ const get_trolley = async (req, res) => {
 };
 
 const delete_trolley = async (req, res) => {
-  const { id } = req.body;
-  const { token } = req.body;
+  const { id, token } = req.body;
   let decodedToken;
   if (token && token.token) {
     decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
