@@ -59,6 +59,14 @@ Sneaker.belongsToMany(UserGoogle, {
   through: Trolley,
 });
 
+User.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(User, {
+  through: Trolley,
+});
+
+
 User.hasOne(Favorite);
 Favorite.belongsTo(User, {
   onDelete: "cascade",
@@ -72,13 +80,15 @@ User.belongsTo(Transactions,{
   onUpdate: "cascade",
   hooks: true,
 })
+/* UserGoogle.hasMany(Trolley);
+Sneaker.hasMany(Trolley);
+Trolley.belongsTo(UserGoogle);
+Trolley.belongsTo(Sneaker); */
 
-User.belongsToMany(Sneaker, {
-  through: Trolley,
-});
-Sneaker.belongsToMany(User, {
-  through: Trolley,
-});
+/* User.hasMany(Trolley);
+Sneaker.hasMany(Trolley);
+Trolley.belongsTo(User);
+Trolley.belongsTo(Sneaker); */
 
 
 Payment.belongsToMany(Cart, {

@@ -4,24 +4,10 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Trolley",
     {
-        // buyerAddress: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        //   },
-      userId:{
-        type:DataTypes.INTEGER(),
-        allownull:false
-      },
-      sneakerId:{
-        type:DataTypes.INTEGER(),
-        allownull:false
-      },
-      userStock:{
-        type:DataTypes.INTEGER(),
-        allownull:false,
-        defaultValue:1
+      quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       }
-
     },
     { timestamps: false }
   );

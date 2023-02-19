@@ -138,6 +138,7 @@ const Add = async (req, res, next) => {
     stock,
     status
   } =
+
     req.body;
 
   const nameUpperCase = name.split(" ");
@@ -263,3 +264,4 @@ const Modify = async (req, res) => {
 };
 
 module.exports = { Add, Delete, Modify, getAll, getByBrandParams, getByCategoryParams, getByIdParams, getByQueryName };
+
