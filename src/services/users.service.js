@@ -25,17 +25,19 @@ const getUsers = async (req, res) => {
 
 const getUserToken = async (req, res) => {
   try {
-    let id = req.user_id;
-    if (id) {
-      let userExist = await User.findByPk(id, {
-        include: { model: Sneaker },
+    const userId = req.user_id;
+    if (userId) {
+      const user = await User.findByPk(userId, {
+        include: [{ model: Trolley, include: [Sneaker] }],
       });
-      if (!userExist) throw new TypeError("Error, User not found with this Id");
-      return res.status(200).send(userExist);
+      if (!user) {
+        throw new TypeError(`User not found with id ${userId}`);
+      }
+      return res.status(200).send(user);
     }
-  } catch (e) {
-    console.log(e);
-    return res.status(400).send(e);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send(error);
   }
 };
 
