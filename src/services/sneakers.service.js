@@ -225,11 +225,10 @@ const Modify = async (req, res) => {
       throw new TypeError("data sent incorrectly");
     }
 
-    let sneaker = await Sneaker.findByPk(parseInt(id));
-    console.log(sneaker)
+    let Sneaker = await Sneaker.findByPk(parseInt(id));
     if (!Sneaker) throw new TypeError("incorrect id");
 
-    await sneaker.update({
+    await Sneaker.update({
       brand_name,
       category_name,
       name,
@@ -248,17 +247,16 @@ const Modify = async (req, res) => {
 
     let newSneakerCategory = await Category.findOne({
       where: {
-        name: category_name,
+        name: category,
       },
     });
     if (!newSneakerCategory)
       throw new TypeError("category sent incorrectly");
-    sneaker.setCategory(newSneakerCategory);
+    Sneaker.setCategory(newSneakerCategory);
 
-    sneaker.save();
+    Sneaker.save();
     res.status(200).send("successfully edited");
   } catch (error) {
-    console.log(error)
     res.status(400).send(error);
   }
 };
