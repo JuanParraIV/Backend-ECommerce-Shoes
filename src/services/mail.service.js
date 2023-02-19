@@ -1,6 +1,6 @@
 require("dotenv").config();
-const mailStructure = require("../mailing/estructure");
-const transporter = require("../mailing/mailing");
+const mailStructure = require("../libs/nodemailer/structure");
+const transporter = require("../libs/nodemailer/mailer");
 
 const mailSignUp = async (req, res) => {
   const { email, userName, password } = req.body;
