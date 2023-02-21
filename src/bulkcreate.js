@@ -1,4 +1,5 @@
-const { Sneaker, Category, Brand, Admin, User } = require("./libs/postgres");
+const { Sneaker, Category, Brand, Admin, User, UserGoogle } = require("./libs/postgres");
+const { userGoogle } = require('./userGoogle.json')
 const { users } = require("./users.json");
 const { admins } = require("./admin.json");
 const { brands } = require("./brands.json");
@@ -10,7 +11,13 @@ const axios = require("axios");
 
 const allData = async (req, res, next) => {
   try {
-
+    const userGoogleValidation = await UserGoogle.findOne({
+      where: { id: 1 },
+    });
+    if (!userGoogleValidation) {
+      await UserGoogle.bulkCreate(userGoogle);
+      console.log("UserGoogle loaded in db succesfully");
+    }
     const adminValidation = await Admin.findOne({
       where: { id: 1 },
     });
@@ -57,7 +64,7 @@ const allData = async (req, res, next) => {
               name: category,
             },
           });
-        
+
           const brand = e.brand_name;
           let newSneakerBrand = await Brand.findOne({
             where: {

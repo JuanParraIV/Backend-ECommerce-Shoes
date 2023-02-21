@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "user",
+    "User",
     {
       dni: {
         type: DataTypes.BIGINT,

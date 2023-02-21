@@ -5,7 +5,7 @@ const { ENV } = require('./src/libs/config.js');
 
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   try {
     server.listen(ENV.api_port, async () => {
       await allData();

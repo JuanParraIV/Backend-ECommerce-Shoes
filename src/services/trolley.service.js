@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User, Trolley, Sneaker, Category, UserGoogle } = require("../libs/postgres");
+const { User, Trolley, TrolleyGoogle, Sneaker, Category, UserGoogle } = require("../libs/postgres");
 const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
@@ -65,70 +65,69 @@ try {
 }; */
 const add_trolley = async (req, res) => {
   try {
-  const { items, amount, token } = req.body;
-  let decodedToken;
-  if (token && token.token) {
-    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
-  } else {
-    return res.status(400).send('Invalid token');
-  }
+    const { items, amount, token } = req.body;
+    let decodedToken;
+    if (token && token.token) {
+      decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+    } else {
+      return res.status(400).send('Invalid token');
+    }
 
-  const userId = decodedToken.user_id;
-  const userType = token.userType;
-  const quantities = items.map(item => item.quantity);
-  const productIds = items.map(item => item.id);
+    const userId = decodedToken.user_id;
+    const userType = token.userType;
+    const quantities = items.map(item => item.quantity);
+    const productIds = items.map(item => item.id);
 
-  let usuario;
-  let userAssociation;
+    let usuario, trolleyModel;
+    if (userType === 'googleUser') {
+      usuario = await UserGoogle.findByPk(userId);
+      trolleyModel = TrolleyGoogle;
+    } else {
+      usuario = await User.findByPk(userId);
+      trolleyModel = Trolley;
+    }
 
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
 
-  if (userType === 'googleUser') {
-    usuario = await UserGoogle.findByPk(userId);
-    userAssociation = UserGoogle;
-  }else if (userType === 'user') {
-    usuario = await User.findByPk(userId);
-    userAssociation = User;
-  }
+    const products = await Sneaker.findAll({ where: { id: productIds } });
+    const sneakerIds = products.map(item => item.id);
 
-  if (!usuario) {
-    return res.status(404).json({ message: 'Usuario no encontrado' });
-  }
-
-  const products = await Sneaker.findAll({ where: { id: productIds } });
-  const sneakerIds = products.map(item => item.id);
-
-  if (!products) {
-    return res.status(404).json({ message: 'Productos no encontrados' });
-  }
+    if (!products) {
+      return res.status(404).json({ message: 'Productos no encontrados' });
+    }
 
 
-    const trolleyItems = await Promise.all(sneakerIds.map(async (sneakerId, index) => {
-      const product = products.find(p => p.id === sneakerId);
-      const trolleyItem = await Trolley.findOne({
+    const trolleyItems = await Promise.all(items.map(async (item) => {
+      const product = products.find(p => p.id === item.id);
+
+      let trolleyItem = await trolleyModel.findOne({
         where: {
-          [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id,
-          sneakerId: sneakerId
+          [userType === 'googleUser' ? 'UserGoogleId' : 'UserId']: userId,
+          SneakerId: item.id
         }
       });
 
       if (trolleyItem) {
-        trolleyItem.quantity = quantities[index];
+        trolleyItem.quantity = item.quantity;
         await trolleyItem.save();
-        return trolleyItem;
+        return trolleyItem
       } else {
-        const newTrolleyItem = await Trolley.create({
-          [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id,
-          sneakerId: sneakerId,
-          quantity: quantities[index]
+        trolleyItem = await trolleyModel.create({
+          [userType === 'googleUser' ? 'UserGoogleId' : 'UserId']: userId,
+          SneakerId: item.id,
+          quantity: item.quantity
         });
-        await newTrolleyItem[`set${userAssociation.name}`](usuario);
-        return newTrolleyItem;
+        console.log(usuario.constructor.name)
+        await trolleyItem[`set${usuario.constructor.name}`](usuario);
+        return trolleyItem
       }
     }));
 
     res.send('Se agregaron los items al carrito');
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).send(error);
   }
 };

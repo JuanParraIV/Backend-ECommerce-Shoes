@@ -33,16 +33,16 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 
-const { UserGoogle, Category, Sneaker, Brand, Admin, Cart, Payment,User,Trolley,Transactions, Favorite} = sequelize.models;
+const { TrolleyGoogle, UserGoogle, Category, Sneaker, Brand, Admin, Cart, Payment, User, Trolley, Transactions, Favorite } = sequelize.models;
 
 // Aca vendrian las relaciones
 /* Admin.hasMany(Sneaker);
 Sneaker.belongsTo(Admin); */
 UserGoogle.belongsToMany(Sneaker, {
-  through: Trolley,
+  through: TrolleyGoogle,
 });
 Sneaker.belongsToMany(UserGoogle, {
-  through: Trolley,
+  through: TrolleyGoogle,
 });
 
 User.belongsToMany(Sneaker, {
@@ -52,19 +52,70 @@ Sneaker.belongsToMany(User, {
   through: Trolley,
 });
 
+/* UserGoogle.belongsToMany(Sneaker, {
+  through: {
+    model: Trolley,
+    unique: false,
+    scope: {
+      trolleyable: "sneaker",
+    },
+  },
+  foreignKey: "usergoogleId",
+  constraints: true,
+});
+
+// Relación de Sneaker con UserGoogle a través de Trolley
+Sneaker.belongsToMany(UserGoogle, {
+  through: {
+    model: Trolley,
+    unique: false,
+    scope: {
+      trolleyable: "sneaker",
+    },
+  },
+  foreignKey: "sneakerId",
+  constraints: true,
+});
+
+// Relación de User con Sneaker a través de Trolley
+User.belongsToMany(Sneaker, {
+  through: {
+    model: Trolley,
+    unique: false,
+    scope: {
+      trolleyable: "sneaker",
+    },
+  },
+  foreignKey: "userId",
+  constraints: true,
+});
+
+// Relación de Sneaker con User a través de Trolley
+Sneaker.belongsToMany(User, {
+  through: {
+    model: Trolley,
+    unique: false,
+    scope: {
+      trolleyable: "sneaker",
+    },
+  },
+  foreignKey: "sneakerId",
+  constraints: true,
+}); */
+
 UserGoogle.hasOne(Favorite);
 Favorite.belongsTo(UserGoogle, {
   onDelete: "cascade",
   onUpdate: "cascade",
   hooks: true,
-})
+});
 
 Transactions.hasOne(UserGoogle);
-UserGoogle.belongsTo(Transactions,{
+UserGoogle.belongsTo(Transactions, {
   onDelete: "cascade",
   onUpdate: "cascade",
   hooks: true,
-})
+});
 
 
 
@@ -74,14 +125,14 @@ Favorite.belongsTo(User, {
   onDelete: "cascade",
   onUpdate: "cascade",
   hooks: true,
-})
+});
 
 Transactions.hasOne(User);
-User.belongsTo(Transactions,{
+User.belongsTo(Transactions, {
   onDelete: "cascade",
   onUpdate: "cascade",
   hooks: true,
-})
+});
 /* UserGoogle.hasMany(Trolley);
 Sneaker.hasMany(Trolley);
 Trolley.belongsTo(UserGoogle);

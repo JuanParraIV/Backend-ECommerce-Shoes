@@ -44,7 +44,7 @@ const postUser = async (req, res) => {
         where: { email },
       });
       if (user) {
-        throw new TypeError("Error, User exist");
+        res.status(200).send({msg:'User Exist'});
       }
       await UserGoogle.create({
         email,

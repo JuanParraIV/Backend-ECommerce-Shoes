@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "admin",
+    "Admin",
     {
       userName: {
         type: DataTypes.STRING,
