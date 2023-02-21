@@ -150,13 +150,30 @@ const get_trolley = async (req, res) => {
 
 const delete_trolley = async (req, res) => {
   const { id, token } = req.body;
-  try {
-    const { userId, userType } = getUserIdAndUserType(token);
+  let decodedToken;
+  if (token && token.token) {
+    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+  } else {
+    return res.status(400).send('Invalid token');
+  }
 
-    const usuario = await getUserByIdAndType(userId, userType);
-    if (!usuario) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
-    }
+  const userId = decodedToken.user_id;
+  const userType = token.userType;
+
+  let usuario, trolleyModel;
+  if (userType === 'user') {
+    usuario = await User.findByPk(userId);
+    trolleyModel = Trolley;
+  } else if (userType === 'googleUser') {
+    usuario = await UserGoogle.findByPk(userId);
+    trolleyModel = TrolleyGoogle;
+  }
+
+  if (!usuario) {
+    return res.status(404).json({ message: 'Usuario no encontrado' });
+  }
+  
+  try {
 
     const trolleyModel = userType === 'googleUser' ? TrolleyGoogle : Trolley;
 
