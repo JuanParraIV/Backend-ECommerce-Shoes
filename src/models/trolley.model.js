@@ -7,6 +7,10 @@ module.exports = (sequelize) => {
       quantity: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      UserGoogleId:{
+        type: DataTypes.INTEGER,
+        allowNull: true
       }
     },
     { timestamps: false }
