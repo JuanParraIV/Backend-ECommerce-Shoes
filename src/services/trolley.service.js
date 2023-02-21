@@ -3,66 +3,27 @@ const { User, Trolley, TrolleyGoogle, Sneaker, Category, UserGoogle } = require(
 const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
-/* const add_trolley = async (req, res) => {
-  const { items, amount, token } = req.body;
+//helper functions
+const getUserIdAndUserType = (token) => {
   let decodedToken;
   if (token && token.token) {
     decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
   } else {
-    return res.status(400).send('Invalid token');
+    throw new Error('Invalid token');
   }
+  const { user_id: userId, userType } = decodedToken;
+  return { userId, userType };
+};
 
-  const userId = decodedToken.user_id;
-  const userType = token.userType;
-  const quantities = items.map(item => item.quantity);
-  const productIds = items.map(item => item.id);
-
-  const findUser = await User.findOne({ where: { id: userId } });
-  const findGoogleUser = await UserGoogle.findOne({ where: { id: userId } });
-
-  const products = await Sneaker.findAll({ where: { id: productIds } });
-  const sneakerIds = products.map(item => item.id);
-
-  let usuario;
-if (userType === 'user') {
-  usuario = findUser;
-} else if (userType === 'googleUser') {
-  usuario = findGoogleUser;
-}
-
-if (!usuario || !products) {
-  return res.status(404).json({ message: 'Usuario o producto no encontrado' });
-}
-
-try {
-  const trolleyItems = await Promise.all(sneakerIds.map(async (sneakerId, index) => {
-    const product = products.find(p => p.id === sneakerId);
-    const trolleyItem = await Trolley.findOne({
-      where: {
-        [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id,
-        sneakerId: sneakerId
-      }
-    });
-
-    if (trolleyItem) {
-      trolleyItem.quantity = quantities[index];
-      await trolleyItem.save();
-      return trolleyItem;
-    } else {
-      const newTrolleyItem = await Trolley.create({
-        [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id,
-        sneakerId: sneakerId,
-        quantity: quantities[index]
-      });
-      return newTrolleyItem;
-    }
-  }));
-
-  res.send('Se agregaron los items al carrito');
-} catch (error) {
-  res.status(400).send(error);
-}
-}; */
+const getUserByIdAndType = async (userId, userType) => {
+  if (userType === 'user') {
+    return await User.findByPk(userId);
+  } else if (userType === 'googleUser') {
+    return await UserGoogle.findByPk(userId);
+  } else {
+    throw new Error('Invalid userType');
+  }
+};
 const add_trolley = async (req, res) => {
   try {
     const { items, amount, token } = req.body;
@@ -144,11 +105,13 @@ const get_trolley = async (req, res) => {
   const userId = decodedToken.user_id;
   const userType = token.userType;
 
-  let usuario;
+  let usuario, trolleyModel;
   if (userType === 'user') {
-    usuario = await User.findOne({ where: { id: userId } });
+    usuario = await User.findByPk(userId);
+    trolleyModel = Trolley;
   } else if (userType === 'googleUser') {
-    usuario = await UserGoogle.findOne({ where: { id: userId } });
+    usuario = await UserGoogle.findByPk(userId);
+    trolleyModel = TrolleyGoogle;
   }
 
   if (!usuario) {
@@ -156,14 +119,30 @@ const get_trolley = async (req, res) => {
   }
 
   try {
-    const trolleyItems = await Trolley.findAll({
+    const trolleyItems = await trolleyModel.findAll({
       where: {
         [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id
       },
       include: [Sneaker]
     });
 
-    res.json(trolleyItems);
+    if (!trolleyItems) {
+      return res.status(404).json({ message: 'No se encontraron elementos en el carrito' });
+    }
+
+    const productIds = trolleyItems.map(item => item.SneakerId);
+    const products = await Sneaker.findAll({ where: { id: productIds } });
+
+    if (!products) {
+      return res.status(404).json({ message: 'No se encontraron productos en el carrito' });
+    }
+
+    const items = trolleyItems.map(item => {
+      const product = products.find(p => p.id === item.SneakerId);
+      return { id: product.id, name: product.name, quantity: item.quantity, price: product.price };
+    });
+
+    res.json(items);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -171,43 +150,36 @@ const get_trolley = async (req, res) => {
 
 const delete_trolley = async (req, res) => {
   const { id, token } = req.body;
-  let decodedToken;
-  if (token && token.token) {
-    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
-  } else {
-    return res.status(400).send('Invalid token');
-  }
-
-  const userId = decodedToken.user_id;
-  const userType = token.userType;
-
-  const findUser = await User.findOne({ where: { id: userId } });
-  const findGoogleUser = await UserGoogle.findOne({ where: { id: userId } });
-
-  let usuario;
-  if (userType === 'user') {
-    usuario = findUser;
-  } else if (userType === 'googleUser') {
-    usuario = findGoogleUser;
-  }
-
-  if (!usuario) {
-    return res.status(404).json({ message: 'Usuario no encontrado' });
-  }
-
   try {
-    await Trolley.destroy({
+    const { userId, userType } = getUserIdAndUserType(token);
+
+    const usuario = await getUserByIdAndType(userId, userType);
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    const trolleyModel = userType === 'googleUser' ? TrolleyGoogle : Trolley;
+
+    const trolleyItem = await trolleyModel.findOne({
       where: {
-        [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id,
-        sneakerId: id
+        [userType === 'googleUser' ? 'UserGoogleId' : 'UserId']: userId,
+        SneakerId: id
       }
     });
+
+    if (!trolleyItem) {
+      return res.status(404).json({ message: 'Producto no encontrado en el carrito' });
+    }
+
+    await trolleyItem.destroy();
 
     res.send('El producto se eliminó del carrito');
   } catch (error) {
     res.status(400).send(error);
   }
 };
+
+
 const delete_all_trolley = async (req, res) => {
   const { token } = req.body;
   let decodedToken;
@@ -221,11 +193,13 @@ const delete_all_trolley = async (req, res) => {
   const userId = decodedToken.user_id;
   const userType = token.userType;
 
-  let usuario;
-  if (userType === 'user') {
-    usuario = await User.findOne({ where: { id: userId } });
-  } else if (userType === 'googleUser') {
-    usuario = await UserGoogle.findOne({ where: { id: userId } });
+  let usuario, trolleyModel;
+  if (userType === 'googleUser') {
+    usuario = await UserGoogle.findByPk(userId);
+    trolleyModel = TrolleyGoogle;
+  } else {
+    usuario = await User.findByPk(userId);
+    trolleyModel = Trolley;
   }
 
   if (!usuario) {
@@ -233,7 +207,7 @@ const delete_all_trolley = async (req, res) => {
   }
 
   try {
-    await Trolley.destroy({
+    await trolleyModel.destroy({
       where: {
         [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id
       }
