@@ -1,6 +1,6 @@
 class mailStructure {
   constructor(to) {
-    (this.from = '"MusiCommerce Store" <musicommercestore@gmail.com>'),
+    (this.from = 'Sneaker Society <sneakersociety2023.info@gmail.com>'),
       (this.to = to),
       (this.subject = ""),
       (this.text = ""),
@@ -19,7 +19,7 @@ class mailStructure {
     this.html = `
     <div>
           <div >
-            <h1 style="color:#2B4570">Welcome to MusiCommerce</h1>
+            <h1 style="color:#2B4570">Welcome to Sneaker E-Commerce</h1>
           </div>
           <div>
             <h3 style="color:#2B4570">Summary of your information:</h3>
@@ -28,7 +28,7 @@ class mailStructure {
                <li><b style="color:#5497A7">Password:</b> ${password}</li>
              </ul>
            </div>
-            <a href="https://www.google.com">Ir a Musiccomerce</a>
+            <a href="https://www.google.com">Ir a Sneaker E-Commerce</a>
     </div>`;
   }
   setHtmlShop(name, phone, address, city, country, zip, total, items) {
@@ -50,13 +50,13 @@ class mailStructure {
     <div>
       <h3 style="color:#2B4570">PRODUCTS</h3>
       <div>${items.map(
-        (e) =>
-          `<img src= ${e.img} style= "height:150px" "width=150px"/>
+      (e) =>
+        `<img src= ${e.img} style= "height:150px" "width=150px"/>
         <p><b style="color:#5497A7">Instrument:</b> ${e.name}</p>
         <p><b style="color:#5497A7">Units:</b> ${e.count}</p>
         <p><b style="color:#5497A7">unit price:</b> $${e.price}</p>
         `
-      )}
+    )}
       </div>
     </div>
     </br>
@@ -90,7 +90,7 @@ class mailStructure {
   setNewsletter(email) {
     this.html = `
     <div>
-      <h1 style="color:#2B4570">Thank you for your subscription to MusiCommerce</h1>
+      <h1 style="color:#2B4570">Thank you for your subscription to Sneaker E-Commerce</h1>
       <h3>We will keep you informed</h3>
       <p>${email}</p>
     </div>
