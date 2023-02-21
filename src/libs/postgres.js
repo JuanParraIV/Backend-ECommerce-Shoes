@@ -38,6 +38,20 @@ const { UserGoogle, Category, Sneaker, Brand, Admin, Cart, Payment,User,Trolley,
 // Aca vendrian las relaciones
 /* Admin.hasMany(Sneaker);
 Sneaker.belongsTo(Admin); */
+UserGoogle.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(UserGoogle, {
+  through: Trolley,
+});
+
+User.belongsToMany(Sneaker, {
+  through: Trolley,
+});
+Sneaker.belongsToMany(User, {
+  through: Trolley,
+});
+
 UserGoogle.hasOne(Favorite);
 Favorite.belongsTo(UserGoogle, {
   onDelete: "cascade",
@@ -52,19 +66,7 @@ UserGoogle.belongsTo(Transactions,{
   hooks: true,
 })
 
-UserGoogle.belongsToMany(Sneaker, {
-  through: Trolley,
-});
-Sneaker.belongsToMany(UserGoogle, {
-  through: Trolley,
-});
 
-User.belongsToMany(Sneaker, {
-  through: Trolley,
-});
-Sneaker.belongsToMany(User, {
-  through: Trolley,
-});
 
 
 User.hasOne(Favorite);

@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 const { user } = require("pg/lib/defaults");
 
 const add_trolley = async (req, res) => {
+  try {
   const { items, amount, token } = req.body;
   let decodedToken;
   if (token && token.token) {
@@ -20,12 +21,13 @@ const add_trolley = async (req, res) => {
   let usuario;
   let userAssociation;
 
-  if (userType === 'user') {
-    usuario = await User.findByPk(userId);
-    userAssociation = User;
-  } else if (userType === 'googleUser') {
+
+  if (userType === 'googleUser') {
     usuario = await UserGoogle.findByPk(userId);
     userAssociation = UserGoogle;
+  }else if (userType === 'user') {
+    usuario = await User.findByPk(userId);
+    userAssociation = User;
   }
 
   if (!usuario) {
@@ -39,7 +41,7 @@ const add_trolley = async (req, res) => {
     return res.status(404).json({ message: 'Productos no encontrados' });
   }
 
-  try {
+
     const trolleyItems = await Promise.all(sneakerIds.map(async (sneakerId, index) => {
       const product = products.find(p => p.id === sneakerId);
       const trolleyItem = await Trolley.findOne({
@@ -66,6 +68,7 @@ const add_trolley = async (req, res) => {
 
     res.send('Se agregaron los items al carrito');
   } catch (error) {
+    console.log(error)
     res.status(400).send(error);
   }
 };
