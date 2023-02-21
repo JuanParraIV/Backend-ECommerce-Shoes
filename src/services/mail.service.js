@@ -57,13 +57,13 @@ const modifyUserProfile = async (req, res) => {
 };
 
 const mailPurchase = async (req, res) => {
-  const { name, email, phone, address, city, country, zip, total, items } =
+  const { cus_name, cus_email, cus_phone, cus_address, cus_city, cus_country, cus_zip, total, items } =
     req.body;
 
-  const mailShop = new mailStructure(email);
-  mailShop.setTo(email);
+  const mailShop = new mailStructure(cus_email);
+  mailShop.setTo(cus_email);
   mailShop.setSubject(`Your purchase summary`);
-  mailShop.setHtmlShop(name, phone, address, city, country, zip, total, items);
+  mailShop.setHtmlShop(cus_name, cus_phone, cus_address, cus_city, cus_country, cus_zip, total, items);
 
   const info = {
     from: mailShop.from,
