@@ -165,19 +165,38 @@ const Add = async (req, res, next) => {
     next(error);
   }
 };
+// const Delete = async (req, res) => {
+//   const { id } = req.body;
+//   try {
+//     if (id) {
+//       const deleteSneaker = await Sneaker.findByPk(id);
+//       if (!deleteSneaker) {
+//         throw new TypeError("Error, Sneaker not found with this Id");
+//       }
+//       deleteSneaker.isBanned = true;
+//       await deleteSneaker.save();
+//       res.status(200).send("Sneaker deleted");
+//     } else {
+//       throw new TypeError("Error, The Id entered is not valid");
+//     }
+//   } catch (e) {
+//     return res.status(400).send(e.message);
+//   }
+// };
+
 const Delete = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
     if (id) {
       const deleteSneaker = await Sneaker.findByPk(id);
       if (!deleteSneaker) {
-        throw new TypeError("Error, Sneaker not found with this Id");
+        throw new TypeError("Error, Sneaker Id not found");
       }
-      deleteSneaker.isBanned = true;
+      deleteSneaker.isBanned  = true;
       await deleteSneaker.save();
       res.status(200).send("Sneaker deleted");
     } else {
-      throw new TypeError("Error, The Id entered is not valid");
+      throw new TypeError("Error, Sneaker Id invalid");
     }
   } catch (e) {
     return res.status(400).send(e.message);

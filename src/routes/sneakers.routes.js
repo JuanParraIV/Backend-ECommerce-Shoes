@@ -14,6 +14,6 @@ router.get('/:id', getByIdParams);
 router.get('/', getByQueryName);
 router.put("/", [verifyTokenAdmin], Modify);
 router.post("/", [verifyTokenAdmin], Add);
-router.delete("/", [verifyTokenAdmin], Delete);
+router.delete("/:id", [verifyTokenAdmin], Delete);
 
 module.exports = router;
