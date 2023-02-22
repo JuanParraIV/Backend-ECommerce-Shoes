@@ -1,29 +1,7 @@
 const jwt = require("jsonwebtoken");
-const { User, Trolley, TrolleyGoogle, Sneaker, Category, UserGoogle } = require("../libs/postgres");
+const { Brand, User, Trolley, TrolleyGoogle, Sneaker, Category, UserGoogle } = require("../libs/postgres");
 const { Op } = require("sequelize");
-const { user } = require("pg/lib/defaults");
 
-//helper functions
-const getUserIdAndUserType = (token) => {
-  let decodedToken;
-  if (token && token.token) {
-    decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
-  } else {
-    throw new Error('Invalid token');
-  }
-  const { user_id: userId, userType } = decodedToken;
-  return { userId, userType };
-};
-
-const getUserByIdAndType = async (userId, userType) => {
-  if (userType === 'user') {
-    return await User.findByPk(userId);
-  } else if (userType === 'googleUser') {
-    return await UserGoogle.findByPk(userId);
-  } else {
-    throw new Error('Invalid userType');
-  }
-};
 const add_trolley = async (req, res) => {
   try {
     const { items, amount, token } = req.body;
@@ -73,16 +51,16 @@ const add_trolley = async (req, res) => {
       if (trolleyItem) {
         trolleyItem.quantity = item.quantity;
         await trolleyItem.save();
-        return trolleyItem
+        return trolleyItem;
       } else {
         trolleyItem = await trolleyModel.create({
           [userType === 'googleUser' ? 'UserGoogleId' : 'UserId']: userId,
           SneakerId: item.id,
           quantity: item.quantity
         });
-        console.log(usuario.constructor.name)
+        console.log(usuario.constructor.name);
         await trolleyItem[`set${usuario.constructor.name}`](usuario);
-        return trolleyItem
+        return trolleyItem;
       }
     }));
 
@@ -93,7 +71,8 @@ const add_trolley = async (req, res) => {
   }
 };
 
-const get_trolley = async (req, res) => {
+/* const get_trolley = async (req, res) => {
+  try {
   const { token } = req.body;
   let decodedToken;
   if (token && token.token) {
@@ -118,7 +97,7 @@ const get_trolley = async (req, res) => {
     return res.status(404).json({ message: 'Usuario no encontrado' });
   }
 
-  try {
+
     const trolleyItems = await trolleyModel.findAll({
       where: {
         [userType === 'user' ? 'userId' : 'UserGoogleId']: usuario.id
@@ -144,6 +123,92 @@ const get_trolley = async (req, res) => {
 
     res.json(items);
   } catch (error) {
+    console.log(error)
+    res.status(400).send(error);
+  }
+}; */
+const get_trolley = async (req, res) => {
+  try {
+    const { token } = req.body;
+    let decodedToken;
+    if (token && token.token) {
+      decodedToken = jwt.verify(token.token, process.env.JWT_SECRET);
+    } else {
+      return res.status(400).send('Invalid token');
+    }
+
+    const userId = decodedToken.user_id;
+    const userType = token.userType;
+
+    let usuario, trolleyModel;
+    if (userType === 'user') {
+      usuario = await User.findByPk(userId);
+      trolleyModel = Trolley;
+    } else if (userType === 'googleUser') {
+      usuario = await UserGoogle.findByPk(userId);
+      trolleyModel = TrolleyGoogle;
+    }
+
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    console.log(userType)
+    console.log(usuario.id)
+    console.log(trolleyModel)
+    const trolleyItems = await trolleyModel.findAll({
+      where: {
+        [userType === 'user' ? 'UserId' : 'UserGoogleId']: usuario.id
+      },
+      include: [
+        {
+          model: Sneaker,
+          attributes: [
+            'id',
+            'brand_name',
+            'category_name',
+            'name',
+            'color',
+            'retail_price_cents',
+            'size_range',
+            'grid_picture_url',
+            'original_picture_url',
+            'main_picture_url',
+            'details',
+            'stock',
+            'isBanned',
+            'status',
+            'rating',
+            'BrandId',
+            'CategoryId'
+          ],
+          through: {
+            model: trolleyModel,
+            attributes: ['quantity']
+          },
+          include: [
+            {
+              model: Brand,
+              attributes: ['Id']
+            },
+            {
+              model: Category,
+              attributes: ['Id']
+            }
+          ]
+        }
+      ]
+    });
+
+    if (!trolleyItems) {
+      return res.status(404).json({ message: 'No se encontraron elementos en el carrito' });
+    }
+
+    const items = trolleyItems.map(item => item.Sneakers[0].toJSON());
+
+    res.json({ items });
+  } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 };
@@ -172,7 +237,7 @@ const delete_trolley = async (req, res) => {
   if (!usuario) {
     return res.status(404).json({ message: 'Usuario no encontrado' });
   }
-  
+
   try {
 
     const trolleyModel = userType === 'googleUser' ? TrolleyGoogle : Trolley;
@@ -280,7 +345,7 @@ const less_stock = async (req, res) => {
 
 module.exports = {
   get_trolley,
-  post_trolley: add_trolley,
+  add_trolley,
   delete_trolley,
   delete_all_trolley,
   less_stock,

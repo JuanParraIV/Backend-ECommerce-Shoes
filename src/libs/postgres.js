@@ -43,13 +43,18 @@ UserGoogle.belongsToMany(Sneaker, {
 });
 Sneaker.belongsToMany(UserGoogle, {
   through: TrolleyGoogle,
+  foreignKey: 'SneakerId'
 });
+TrolleyGoogle.belongsTo(Sneaker, { foreignKey: 'SneakerId' });
+
+Trolley.belongsTo(Sneaker, { foreignKey: 'SneakerId' });
 
 User.belongsToMany(Sneaker, {
   through: Trolley,
 });
 Sneaker.belongsToMany(User, {
   through: Trolley,
+  foreignKey: 'SneakerId'
 });
 
 /* UserGoogle.belongsToMany(Sneaker, {
@@ -150,10 +155,10 @@ Payment.belongsToMany(Cart, {
 Cart.belongsToMany(Payment, {
   through: "Transaction",
 });
-Brand.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
-Sneaker.belongsTo(Brand);
-Category.hasMany(Sneaker, { onDelete: 'cascade', onUpdate: 'cascade', hooks: true });
-Sneaker.belongsTo(Category);
+Brand.hasMany(Sneaker, { foreignKey: 'BrandId' });
+Sneaker.belongsTo(Brand, { foreignKey: 'BrandId' });
+Category.hasMany(Sneaker, { foreignKey: 'CategoryId' });
+Sneaker.belongsTo(Category, { foreignKey: 'CategoryId' });
 
 
 module.exports = {
